@@ -1,0 +1,9 @@
+[user]
+    email = youremail@mail.com
+    name = firstName lastName
+[credential]
+    helper = cache --timeout=18000
+[core]
+    excludesfile = /path/to/.gitignore
+[init]
+    defaultBranch = main

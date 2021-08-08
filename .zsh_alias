@@ -1,0 +1,48 @@
+# Useful
+
+alias vim="nvim"
+
+alias v="nvim"
+
+alias ls="lsd -1 --group-dirs first"
+
+alias lsl="lsd -1lh --group-dirs first"
+
+alias lsa="lsd -1A --group-dirs first"
+
+alias lsla="lsd -1Alh --group-dirs first"
+
+alias rg="rg -p"
+
+alias less="less -R"
+
+alias tree="tree -aI '.git|.DS_Store|tags'"
+
+function cl () { 
+	cd "$1" && ls; 
+}
+
+function cla () { 
+	cd "$1" && lsa; 
+}
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# Git
+alias gdiff="git diff | bat"
+
+# Dotfiles
+alias vrc="vim ~/init.vim"
+alias zrc="vim ~/.zshrc"
+alias trc="vim ~/.tmux.conf"
+alias alrc="vim ~/.zsh_alias"
+alias src="source ~/.zshrc"
+
+# Settings - Directory Stack
+setopt PUSHD_MINUS 		   # exchange the meanings of '+' and '-'
+setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
+autoload -U compinit && compinit   # load + start completion
+
+zstyle 'completion:*:directory-stack' list-colors ${(s.:.)LS_COLORS}
