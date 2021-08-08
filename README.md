@@ -1,7 +1,5 @@
 # Ruban's dotfiles
 
----
-
 ![OS](./images/neofetch.png)
 
 ## Installation
