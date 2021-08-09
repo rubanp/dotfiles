@@ -295,7 +295,7 @@ function! s:goyo_leave()
     set relativenumber
     set signcolumn=yes
     let b:signcolumn_on=1
-    source ~/Dotfiles/init.vim
+    source ~/Dotfiles/dotfiles/init.vim
 endfunction
 
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
@@ -321,7 +321,7 @@ nnoremap <silent>† :call FoldColumnToggle()<cr>
 
 nnoremap <silent> <esc><esc> :nohlsearch<cr>
 nnoremap <silent> ,g :silent! Goyo<cr>
-nnoremap <silent><Leader>9 :so ~/Dotfiles/init.vim<cr> :NERDTreeToggle<cr> :NERDTreeToggle<cr>
+nnoremap <silent><Leader>9 :so ~/Dotfiles/dotfiles/init.vim<cr> :NERDTreeToggle<cr> :NERDTreeToggle<cr>
 
 " Lorem Ipsum
 nnoremap ,l :LoremIpsum<space>
