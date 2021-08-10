@@ -10,6 +10,9 @@ export VISUAL=vim
 export EDITOR=vim
 
 export PATH="/opt/homebrew/opt/python@3.8/bin:$PATH"
+
+export PATH="/Users/ruban/Dotfiles/private-dotfiles/scripts:$PATH"
+
 POWERLEVEL9K_LEGACY_ICON_SPACING=true
 
 # Plugins
