@@ -34,7 +34,7 @@ alias ....="cd ../../.."
 alias gdiff="git diff | bat"
 
 # Dotfiles
-alias vrc="vim ~/init.vim"
+alias vrc="vim ~/.config/nvim/init.vim"
 alias zrc="vim ~/.zshrc"
 alias trc="vim ~/.tmux.conf"
 alias alrc="vim ~/.zsh_alias"
