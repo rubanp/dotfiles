@@ -76,10 +76,16 @@ inoremap <silent>˚ <esc>:m .+1<cr>==gi
 nnoremap cn *``cgn
 nnoremap cN *``cgN
 
+nnoremap ∑ <C-w>
+
 " |plugins|
 " =========
 
 call plug#begin('~/.config/nvim/plugged')
+
+Plug 'tpope/vim-speeddating' " https://github.com/tpope/vim-speeddating
+
+Plug 'tpope/vim-repeat' " https://gihtub.com/tpope/vim-repeat
 
 Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
 
@@ -221,7 +227,7 @@ fun! s:get_visual_selection()
        let [line2,col2] = getpos("'>")[1:2]
        return l[col1 - 1: col2 - 1]
  endfun
-nnoremap <leader>. viWy<Esc>:tabedit <C-R>0<cr>
+nnoremap <leader>. viby<Esc>:tabedit <C-R>0<cr>
 vnoremap <leader>. y<Esc>:tabedit <C-R>0<cr>
 
 " Folding Setup
