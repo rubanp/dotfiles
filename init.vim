@@ -76,6 +76,7 @@ inoremap <silent>˚ <esc>:m .+1<cr>==gi
 nnoremap cn *``cgn
 nnoremap cN *``cgN
 
+" Easier Ctrl-w (option-w)
 nnoremap ∑ <C-w>
 
 " |plugins|
@@ -88,10 +89,6 @@ Plug 'tpope/vim-speeddating' " https://github.com/tpope/vim-speeddating
 Plug 'tpope/vim-repeat' " https://gihtub.com/tpope/vim-repeat
 
 Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
-
-Plug 'luochen1990/rainbow' " https://github.com/luochen1990/rainbow
-
-Plug 'junegunn/rainbow_parentheses.vim' " https://github.com/junegunn/rainbow_parentheses.vim
 
 Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
 
@@ -400,7 +397,7 @@ nnoremap <Leader>T :Tags<cr>
 nnoremap <Leader>c :BCommits<cr>
 nnoremap <Leader>C :Commits<cr>
 
-nnoremap <Leader>e :Helptags<cr>
+nnoremap <Leader>E :Helptags<cr>
 
 nnoremap <Leader>q :Snippets<cr>
 
@@ -440,7 +437,6 @@ nnoremap <S-Tab> gT
 
 " Json
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
-
 
 " Easy motion
 map <Leader>; <Plug>(easymotion-prefix)
@@ -572,8 +568,10 @@ let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_left_sep = "\uE0B0"
-let g:airline_right_sep = "\uE0B2"
+let g:airline_powerline_fonts = 1
+let g:Powerline_symbols = 'fancy'
+let g:airline_left_sep = "\uE0B4"
+let g:airline_right_sep = "\uE0B6"
 let g:airline#extensions#tabline#alt_sep = 1
 let g:airline_stl_path_style = 'short'
 let g:airline_section_c_only_filename = 1
@@ -610,7 +608,6 @@ let g:gutentags_ctags_exclude = [
             \ '*/tests/*',
             \ 'dist',
             \ 'bin',
-            \ 'node_modules',
             \ 'cache',
             \ 'compiled',
             \ 'docs',
@@ -637,7 +634,6 @@ let g:gutentags_ctags_exclude = [
             \ '*.csproj.user',
             \ '*.cache',
             \ '*.pdb',
-            \ 'tags*',
             \ 'cscope.*',
             \ '*.css',
             \ '*.less',
@@ -658,12 +654,12 @@ hi CocHintFloat guifg=#dcdfe8 guibg=#2f323b
 hi CocInfoFloat guifg=#73aae6 guibg=#2f323b
 
 " Diagnostics Navigation
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent>]g <Plug>(coc-diagnostic-prev)
+nmap <silent>[g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
@@ -684,7 +680,9 @@ endfunction
 nmap ,rn <Plug>(coc-rename)
 
 " CocList Mappings
+" option + d
 nnoremap <silent><nowait> ∂  :<C-u>CocList diagnostics<cr>
+" option + o
 nnoremap <silent><nowait> ø  :<C-u>CocList outline<cr>
 
 " Coc Airline Settings
