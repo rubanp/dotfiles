@@ -50,7 +50,7 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head  -100'"
 
 bindkey "ç" fzf-cd-widget
 
-# Make most default pager
+# Make less default pager
 export PAGER="less"
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
