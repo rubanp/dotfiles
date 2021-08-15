@@ -84,6 +84,8 @@ nnoremap ∑ <C-w>
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish
+
 Plug 'tpope/vim-speeddating' " https://github.com/tpope/vim-speeddating
 
 Plug 'tpope/vim-repeat' " https://gihtub.com/tpope/vim-repeat
