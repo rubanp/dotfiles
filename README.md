@@ -30,26 +30,26 @@ appropriate.
 
 #### Brew
 
-**tmux**
-**fzf**
-**bat**
-**tree**
-**npm**
-**ranger**
-**neovim**
-**ripgrep**
-**pyton**
-**lazygit**
-**fd**
-**jq**
-**lsd**
-**wget**
-**universal-ctags**
-**mosh**
-**mysql**
+- **tmux**
+- **fzf**
+- **bat**
+- **tree**
+- **npm**
+- **ranger**
+- **neovim**
+- **ripgrep**
+- **pyton**
+- **lazygit**
+- **fd**
+- **jq**
+- **lsd**
+- **wget**
+- **universal-ctags**
+- **mosh**
+- **mysql**
 
 #### Brew Casks
 
-font-hack-nerd-font
-font-fira-code
-keycastr
+- font-hack-nerd-font
+- font-fira-code
+- keycastr
