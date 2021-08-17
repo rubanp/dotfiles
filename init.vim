@@ -84,6 +84,8 @@ nnoremap ∑ <C-w>
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'lervag/vimtex' " https://github.com/lervag/vimtex
+
 Plug 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish
 
 Plug 'tpope/vim-speeddating' " https://github.com/tpope/vim-speeddating
@@ -186,6 +188,7 @@ call plug#end()
 " PMenu
 set background=dark
 colorscheme onehalfdark
+
 let g:airline_theme='papercolor'
 set termguicolors
 highlight Folded guifg=#694c21
@@ -319,8 +322,8 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 " ===========
 nnoremap gm m
 map q: <Nop>
-nnoremap gq :q<cr>
-nnoremap gw :w<cr>
+nnoremap ,q :q<cr>
+nnoremap ,w :w<cr>
 
 nnoremap <silent>† :call FoldColumnToggle()<cr>
 
