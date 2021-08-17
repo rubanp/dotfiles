@@ -18,6 +18,8 @@ alias less="less -R"
 
 alias tree="tree -aI '.git|.DS_Store|tags'"
 
+alias trash="gomi"
+
 function cl () { 
 	cd "$1" && ls; 
 }
@@ -26,9 +28,15 @@ function cla () {
 	cd "$1" && lsa; 
 }
 
+function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
 alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ..5="cd ../../../../.."
+
+alias cwd='printf "%q\n" "$(pwd)" | tee >(pbcopy)'
 
 # Git
 alias lg="lazygit"
