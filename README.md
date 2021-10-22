@@ -47,6 +47,8 @@ appropriate.
 - **universal-ctags**
 - **mosh**
 - **mysql**
+- **trash**
+- **dict**
 
 #### Brew Casks
 

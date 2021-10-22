@@ -94,14 +94,6 @@ Plug 'tpope/vim-repeat' " https://gihtub.com/tpope/vim-repeat
 
 Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
 
-Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
-
-Plug 'lukas-reineke/indent-blankline.nvim' " https://github.com/lukas-reineke/indent-blankline.nvim
-
-Plug 'tpope/vim-dadbod' " https://github.com/tpope/vim-dadbod
-
-Plug 'kristijanhusak/vim-dadbod-ui' " https://github.com/kristijanhusak/vim-dadbod-ui
-
 Plug 'AndrewRadev/tagalong.vim' " https://github.com/AndrewRadev/tagalong.vim
 
 Plug 'ap/vim-css-color' " https://github.com/ap/vim-css-color
@@ -191,7 +183,7 @@ colorscheme onehalfdark
 
 let g:airline_theme='papercolor'
 set termguicolors
-highlight Folded guifg=#694c21
+highlight Folded guifg=#000000
 
 " Make background transparent
 highlight Normal guibg=none
@@ -221,16 +213,6 @@ let g:fzf_colors =
 
 " |functions|
 " ===========
-
-" Open Relative File Links
-fun! s:get_visual_selection()
-       let l=getline("'<")
-       let [line1,col1] = getpos("'<")[1:2]
-       let [line2,col2] = getpos("'>")[1:2]
-       return l[col1 - 1: col2 - 1]
- endfun
-nnoremap <leader>. viby<Esc>:tabedit <C-R>0<cr>
-vnoremap <leader>. y<Esc>:tabedit <C-R>0<cr>
 
 " Folding Setup
 function! MyFoldText()
@@ -276,12 +258,25 @@ endfunction
 nnoremap <silent><C-h> :call ToggleHiddenAll()<cr>
 
 function! ToggleSignColumn()
+    if !exists("b:signs_on") || b:signs_on
+        let b:signs_on=0
+        set signcolumn=no
+    else
+        let b:signs_on=1
+        set signcolumn=yes
+    endif
+endfunction
+
+function! ToggleNumbers()
     if !exists("b:numbers_on") || b:numbers_on
         let b:numbers_on=0
-        set signcolumn=no
+        set norelativenumber
+        set nonumber
     else
         let b:numbers_on=1
         set signcolumn=yes
+        set relativenumber
+        set number
     endif
 endfunction
 
@@ -292,6 +287,9 @@ endfunction
 autocmd FileType dashboard call ToggleHiddenAll() | autocmd WinLeave <buffer> call ToggleHiddenAll()
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | Dashboard | endif
+
+" Folding
+autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 
 " Goyo Dimensions
 let g:goyo_height= '80%'
@@ -422,6 +420,9 @@ vnoremap # y?<C-r>"<CR>
 " Toggle Sign Column
 nnoremap <silent>€ :call ToggleSignColumn()<CR>
 
+" Toggle Numbers
+nnoremap <silent># :call ToggleNumbers()<CR>
+
 " Yank into system clipboard
 nnoremap <Leader>y "*y
 vnoremap <Leader>y "*y
@@ -449,12 +450,6 @@ map <Leader>; <Plug>(easymotion-prefix)
 " Rainbow Parentheses
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 let g:rainbow_active = 1
-
-" Indent Line
-let g:indentLine_enabled = 0
-let g:indentLine_char = '|'
-let g:indentLine_fileTypeExclude = ["text", "help", "dashboard", "log", "fugitive", "gitcommit", "markdown", "json", "txt", "git", "", "vim", "NERDTree"]
-let g:indentLine_bufNameExclude = ["NERD_tree.*"]
 
 " Dashboard
 let g:dashboard_default_executive ='fzf.vim'
@@ -495,11 +490,11 @@ let g:far#auto_preview = 1
 let g:far#enable_undo = 1
 
 " Vim Cutlass
-nnoremap m d
-xnoremap m d
+nnoremap x d
+xnoremap x d
 
-nnoremap mm dd
-nnoremap M D
+nnoremap xx dd
+nnoremap X D
 
 " Vim Yoink
 nnoremap <leader>Y :Yanks<cr>
@@ -519,7 +514,7 @@ let g:yoinkSavePersistently = 1
 " Vim Subversive
 nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
-" nmap S <plug>(SubversiveSubstituteToEndOfLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
 nmap <leader>s <plug>(SubversiveSubstituteRange)
 xmap <leader>s <plug>(SubversiveSubstituteRange)
@@ -575,8 +570,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_powerline_fonts = 1
 let g:Powerline_symbols = 'fancy'
-let g:airline_left_sep = "\uE0B4"
-let g:airline_right_sep = "\uE0B6"
+let g:airline_left_sep = "\uE0B0"
+let g:airline_right_sep = "\uE0B2"
 let g:airline#extensions#tabline#alt_sep = 1
 let g:airline_stl_path_style = 'short'
 let g:airline_section_c_only_filename = 1
@@ -657,6 +652,7 @@ hi CocWarningFloat guifg=#f19746 guibg=#2f323b
 hi CocErrorFloat guifg=#ea3524 guibg=#2f323b
 hi CocHintFloat guifg=#dcdfe8 guibg=#2f323b
 hi CocInfoFloat guifg=#73aae6 guibg=#2f323b
+autocmd FileType markdown let b:coc_suggest_disable = 1
 
 " Diagnostics Navigation
 nmap <silent>]g <Plug>(coc-diagnostic-prev)

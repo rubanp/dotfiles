@@ -110,3 +110,5 @@ _fix_cursor() {
 }
 
 precmd_functions+=(_fix_cursor)
+
+eval $(thefuck --alias)

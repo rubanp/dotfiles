@@ -12,23 +12,19 @@ alias lsa="lsd -1A --group-dirs first"
 
 alias lsla="lsd -1Alh --group-dirs first"
 
-alias rg="rg -p"
-
-alias less="less -R"
-
-alias tree="tree -aI '.git|.DS_Store|tags'"
-
-alias trash="gomi"
-
-function cl () { 
-	cd "$1" && ls; 
+function cl () {
+	cd "$1" && ls;
 }
 
-function cla () { 
-	cd "$1" && lsa; 
+function cla () {
+	cd "$1" && lsa;
 }
 
 function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+function define() {
+    dict "$1" | bat;
+}
 
 alias ..="cd .."
 alias ..2="cd ../.."
@@ -37,6 +33,26 @@ alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
 
 alias cwd='printf "%q\n" "$(pwd)" | tee >(pbcopy)'
+
+# Utilities
+
+alias rg="rg -p"
+
+alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+
+alias less="less -R"
+
+alias tree="tree -aI '.git|.DS_Store|tags'"
+
+alias tree2="tree -L 2 | bat"
+alias tree3="tree -L 3 | bat"
+alias tree4="tree -L 4 | bat"
+
+alias del="trash -F"
+
+alias yt="youtube-dl --add-metadata -i"
+
+alias yta="yt -x -f bestaudio/best"
 
 # Git
 alias lg="lazygit"
