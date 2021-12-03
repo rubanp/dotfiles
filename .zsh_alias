@@ -59,6 +59,8 @@ alias lg="lazygit"
 alias gdiff="git diff | bat"
 
 # Dotfiles
+alias dotfiles="cla ~/Dotfiles/dotfiles"
+alias pdotfiles="cla ~/Dotfiles/dotfiles"
 alias vrc="vim ~/.config/nvim/init.vim"
 alias zrc="vim ~/.zshrc"
 alias trc="vim ~/.tmux.conf"

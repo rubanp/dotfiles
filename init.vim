@@ -57,12 +57,12 @@ nnoremap J mzJ`z
 " Yank till end of line
 nnoremap Y yg_
 
-" Better Undo
-inoremap , ,<c-g>u
-inoremap . .<c-g>u
-inoremap [ [<c-g>u
-inoremap ? ?<c-g>u
-inoremap ! !<c-g>u
+" " Better Undo
+" inoremap , ,<c-g>u
+" inoremap . .<c-g>u
+" inoremap [ [<c-g>u
+" inoremap ? ?<c-g>u
+" inoremap ! !<c-g>u
 
 " Move Text (using Option + j: ∆ and Option + k:˚)
 vnoremap <silent>∆ :m '>+1<cr>gv=gv
@@ -685,6 +685,14 @@ nmap ,rn <Plug>(coc-rename)
 nnoremap <silent><nowait> ∂  :<C-u>CocList diagnostics<cr>
 " option + o
 nnoremap <silent><nowait> ø  :<C-u>CocList outline<cr>
+
+" Coc Git
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" navigate conflicts of current buffer
+nmap [c <Plug>(coc-git-prevconflict)
+nmap ]c <Plug>(coc-git-nextconflict)
 
 " Coc Airline Settings
 let airline#extensions#coc#error_symbol = 'Error: '
