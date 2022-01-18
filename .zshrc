@@ -1,40 +1,47 @@
-source /Users/ruban/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
-
-source ~/.zsh_alias
-source ~/.zsh_alias_private
+# Settings
+# =========================================
 
 export LANGUAGE=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
 export LANG=en_GB.UTF-8
 export VISUAL=vim
 export EDITOR=vim
+PATH=$PATH:~/.local/bin
 
-export PATH="/opt/homebrew/opt/python@3.8/bin:$PATH"
-
-export PATH="/Users/ruban/Dotfiles/private-dotfiles/scripts:$PATH"
-
-POWERLEVEL9K_LEGACY_ICON_SPACING=true
+# Alias
+# =========================================
+source ~/.zsh_alias
 
 # Plugins
+# =========================================
 
 # Vim Mode
-source ~/.oh-my-zsh/custom/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+source ~/.zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # Auto Suggestions
-source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 # Syntax Highlighting
-source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
-# Directory History
+# FZF
+source ~/.zsh/plugins/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh
+
+# Keep Directory History
+# =========================================
 setopt AUTO_PUSHD                  # pushes the old directory onto the stack
 setopt PUSHD_MINUS                 # exchange the meanings of '+' and '-'
 setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
 autoload -U compinit && compinit   # load + start completion
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# Theme
+# =========================================
+source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# FZF
+# =========================================
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -50,7 +57,8 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head  -100'"
 
 bindkey "ç" fzf-cd-widget
 
-# Make less default pager
+# LESS
+# =========================================
 export PAGER="less"
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;32m'
@@ -60,7 +68,7 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-# zsh centre prompt on screen automatically
+# Centre Prompt
 # =========================================
 
 # load terminfo modules to make the associative array $terminfo available
@@ -111,4 +119,7 @@ _fix_cursor() {
 
 precmd_functions+=(_fix_cursor)
 
-eval $(thefuck --alias)
+# Node Version Manager
+# =========================================
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"

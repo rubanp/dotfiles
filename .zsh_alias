@@ -1,8 +1,4 @@
-# Useful
-
 alias vim="nvim"
-
-alias v="nvim"
 
 alias ls="lsd -1 --group-dirs first"
 
@@ -32,44 +28,13 @@ alias ..3="cd ../../.."
 alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
 
-alias cwd='printf "%q\n" "$(pwd)" | tee >(pbcopy)'
-
-# Utilities
-
 alias rg="rg -p"
 
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 
 alias less="less -R"
 
-alias tree="tree -aI '.git|.DS_Store|tags'"
-
+alias tree="tree -aI '.git|.DS_Store|tags|node_modules'"
 alias tree2="tree -L 2 | bat"
 alias tree3="tree -L 3 | bat"
 alias tree4="tree -L 4 | bat"
-
-alias del="trash -F"
-
-alias yt="youtube-dl --add-metadata -i"
-
-alias yta="yt -x -f bestaudio/best"
-
-# Git
-alias lg="lazygit"
-alias gdiff="git diff | bat"
-
-# Dotfiles
-alias dotfiles="cla ~/Dotfiles/dotfiles"
-alias pdotfiles="cla ~/Dotfiles/dotfiles"
-alias vrc="vim ~/.config/nvim/init.vim"
-alias zrc="vim ~/.zshrc"
-alias trc="vim ~/.tmux.conf"
-alias alrc="vim ~/.zsh_alias"
-alias src="source ~/.zshrc"
-
-# Settings - Directory Stack
-setopt PUSHD_MINUS 		   # exchange the meanings of '+' and '-'
-setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
-autoload -U compinit && compinit   # load + start completion
-
-zstyle 'completion:*:directory-stack' list-colors ${(s.:.)LS_COLORS}
