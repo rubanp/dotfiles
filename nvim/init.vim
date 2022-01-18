@@ -325,6 +325,7 @@ map q: <Nop>
 nnoremap ,q :q<cr>
 nnoremap ,w :w<cr>
 nnoremap ,d :bd<cr>
+nnoremap ,1 :q!<cr>
 
 nnoremap <silent>† :call FoldColumnToggle()<cr>
 
