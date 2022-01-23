@@ -1,18 +1,18 @@
 alias vim="nvim"
 
-alias ls="lsd -1 --group-dirs first"
+alias l="lsd -1 --group-dirs first"
 
-alias lsl="lsd -1lh --group-dirs first"
+alias ll="lsd -1lh --group-dirs first"
 
-alias lsa="lsd -1A --group-dirs first"
+alias la="lsd -1A --group-dirs first"
 
-alias lsla="lsd -1Alh --group-dirs first"
+alias lla="lsd -1Alh --group-dirs first"
 
-function cl () {
+function cd () {
 	cd "$1" && ls;
 }
 
-function cla () {
+function cda () {
 	cd "$1" && lsa;
 }
 
