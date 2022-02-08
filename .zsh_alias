@@ -1,3 +1,6 @@
+# General
+# =======
+
 alias vim="nvim"
 
 alias l="lsd -1 --group-dirs first"
@@ -28,6 +31,9 @@ alias ..3="cd ../../.."
 alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
 
+# Programs
+# =======
+
 alias rg="rg -p"
 
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
@@ -38,3 +44,8 @@ alias tree="tree -aI '.git|.DS_Store|tags|node_modules'"
 alias tree2="tree -L 2 | bat"
 alias tree3="tree -L 3 | bat"
 alias tree4="tree -L 4 | bat"
+
+# Config
+# =======
+# Git
+# =======
