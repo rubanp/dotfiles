@@ -8,7 +8,7 @@ alias la="lsd -1A --group-dirs first"
 
 alias lla="lsd -1Alh --group-dirs first"
 
-function cd () {
+function cl () {
 	cd "$1" && ls;
 }
 
