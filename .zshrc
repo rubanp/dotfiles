@@ -6,7 +6,7 @@ export LC_ALL=en_GB.UTF-8
 export LANG=en_GB.UTF-8
 export VISUAL=vim
 export EDITOR=vim
-PATH=$PATH:~/.local/bin
+export PATH="$PATH:$HOME/.local/bin"
 
 # Alias
 # =========================================
@@ -43,19 +43,19 @@ source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
 # FZF
 # =========================================
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # fzf
 export FZF_DEFAULT_COMMAND="fd . --type f --hidden --follow --ignore-file ~/.config/fd/ignore/.fdignore"
 export FZF_DEFAULT_OPTS='--multi --layout=reverse --height 100% --border'
 
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --ignore-file ~/.config/fd/ignore/.fdignore"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :100 {}'"
 
-export FZF_ALT_C_COMMAND="fd . --type d"
+export FZF_ALT_C_COMMAND="fd . --type d --ignore-file ~/.config/fd/ignore/.fdignore"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head  -100'"
 
 bindkey "ç" fzf-cd-widget
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # LESS
 # =========================================
@@ -72,7 +72,7 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 # =========================================
 
 # load terminfo modules to make the associative array $terminfo available
-zmodload zsh/terminfo
+zmodload zsh/terminfo 
 
 # save current prompt to parameter PS1o
 PS1o="$PS1"
@@ -112,12 +112,6 @@ magic-enter () {
 }
 zle -N magic-enter
 bindkey "^M" magic-enter
-
-_fix_cursor() {
-    echo -ne '\e[5 q'
-}
-
-precmd_functions+=(_fix_cursor)
 
 # Node Version Manager
 # =========================================

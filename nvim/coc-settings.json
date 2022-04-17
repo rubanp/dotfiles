@@ -6,6 +6,7 @@
  "coc.preferences.enableFloatHighlight": false,
  "css.validate": false,
 "javascript.suggestionActions.enabled": false,
-"svelte.enable-ts-plugin": true
+"svelte.enable-ts-plugin": true,
+"prettier.singleQuote": true
 } 
 

@@ -1,5 +1,5 @@
 [user]
-    email = rubanprakash.com
+    email = rubanprakash@hotmail.com
     name = Ruban Prakash
 [credential]
     helper = cache --timeout=18000
@@ -7,3 +7,10 @@
     excludesfile = ~/.gitignore
 [init]
     defaultBranch = main
+[advice]
+    statusHints = off
+[color]
+	ui = auto
+[alias]
+	unstage = restore --staged
+    logone = log --oneline

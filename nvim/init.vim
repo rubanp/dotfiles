@@ -77,13 +77,16 @@ inoremap <silent>˚ <esc>:m .+1<cr>==gi
 nnoremap cn *``cgn
 nnoremap cN *``cgN
 
-" Easier Ctrl-w (option-w)
-nnoremap ∑ <C-w>
+" Faster split movement
+nnoremap <C-H> <C-W>h
+nnoremap <C-L> <C-W>l
 
 " |plugins|
 " =========
 
 call plug#begin('~/.config/nvim/plugged')
+
+Plug 'leafOfTree/vim-svelte-plugin' " https://github.com/leafoftree/vim-svelte-plugin
 
 Plug 'lervag/vimtex' " https://github.com/lervag/vimtex
 
@@ -234,51 +237,6 @@ function! FoldColumnToggle()
     endif
 endfunction
 
-let s:hidden_all = 0
-function! ToggleHiddenAll()
-    if s:hidden_all  == 0
-        let s:hidden_all = 1
-        set showtabline=0
-        set noshowmode
-        set noruler
-        set laststatus=0
-        set noshowcmd
-    else
-        let s:hidden_all = 0
-        set showtabline=2
-        set showmode
-        set ruler
-        set laststatus=2
-        set showcmd
-    endif
-endfunction
-
-nnoremap <silent><C-h> :call ToggleHiddenAll()<cr>
-
-function! ToggleSignColumn()
-    if !exists("b:signs_on") || b:signs_on
-        let b:signs_on=0
-        set signcolumn=no
-    else
-        let b:signs_on=1
-        set signcolumn=yes
-    endif
-endfunction
-
-function! ToggleNumbers()
-    if !exists("b:numbers_on") || b:numbers_on
-        let b:numbers_on=0
-        set norelativenumber
-        set nonumber
-    else
-        let b:numbers_on=1
-        set signcolumn=yes
-        set relativenumber
-        set number
-    endif
-endfunction
-
-
 " |autocommands|
 " ==============
 " Start Dashboard when Vim is started without file arguments.
@@ -322,10 +280,6 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 " ===========
 nnoremap gm m
 map q: <Nop>
-nnoremap ,q :q<cr>
-nnoremap ,w :w<cr>
-nnoremap ,d :bd<cr>
-nnoremap ,1 :q!<cr>
 
 nnoremap <silent>† :call FoldColumnToggle()<cr>
 
@@ -438,10 +392,6 @@ nnoremap <Leader>z ggVG$
 " Move up & Pad Top
 nnoremap <Leader>u z<Enter>5k5j
 
-" Tab Movements
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-
 " |plugin-settings|
 " =================
 
@@ -449,7 +399,7 @@ nnoremap <S-Tab> gT
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
 " Easy motion
-map <Leader>; <Plug>(easymotion-prefix)
+map <Leader><Leader> <Plug>(easymotion-prefix)
 
 " Rainbow Parentheses
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
@@ -527,8 +477,9 @@ nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 " Nerd Tree
 let NERDTreeShowBookmarks=1
 nnoremap ,b :Bookmark<CR>
-nnoremap <silent><leader>n :NERDTreeToggle<CR>
+nnoremap <silent><leader>; :NERDTreeToggle<CR>
 let g:NERDTreeGitStatusShowClean = 1
+let NERDTreeIgnore = ['node_modules']
 
 " Nerd Tree Syntax Highlighting
 let s:brown = "905532"
@@ -603,13 +554,6 @@ hi CocErrorFloat guifg=#ea3524 guibg=#2f323b
 hi CocHintFloat guifg=#dcdfe8 guibg=#2f323b
 hi CocInfoFloat guifg=#73aae6 guibg=#2f323b
 autocmd FileType markdown let b:coc_suggest_disable = 1
-
-" Autocomplete with tab
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Diagnostics Navigation
 nmap <silent>]g <Plug>(coc-diagnostic-prev)
