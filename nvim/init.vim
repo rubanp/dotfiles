@@ -86,7 +86,15 @@ nnoremap <C-L> <C-W>l
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'leafOfTree/vim-svelte-plugin' " https://github.com/leafoftree/vim-svelte-plugin
+" Plug 'simrat39/symbols-outline.nvim' " https://github.com/simrat39/symbols-outline.nvim
+
+" Plug 'leafgarland/typescript-vim' " https://github.com/leafgarland/typescript-vim
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " https://github.com/nvim-treesitter/nvim-treesitter
+
+Plug 'jonsmithers/vim-html-template-literals' " https://github.com/jonsmithers/vim-html-template-literals
+
+Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
 
 Plug 'lervag/vimtex' " https://github.com/lervag/vimtex
 
@@ -168,8 +176,6 @@ Plug 'edkolev/tmuxline.vim' " https://github.com/edkolev/tmuxline.vim
 
 Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
 
-Plug 'yuezk/vim-js' " https://github.com/yuezk/vim-js
-
 call plug#end()
 
 " |theme|
@@ -240,7 +246,6 @@ endfunction
 " |autocommands|
 " ==============
 " Start Dashboard when Vim is started without file arguments.
-autocmd FileType dashboard call ToggleHiddenAll() | autocmd WinLeave <buffer> call ToggleHiddenAll()
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | Dashboard | endif
 
@@ -285,14 +290,6 @@ nnoremap <silent>† :call FoldColumnToggle()<cr>
 
 nnoremap <silent> <esc><esc> :nohlsearch<cr>
 nnoremap <silent> ,g :silent! Goyo<cr>
-nnoremap <silent><Leader>9 :so ~/Dotfiles/dotfiles/init.vim<cr> :NERDTreeToggle<cr> :NERDTreeToggle<cr>
-
-" Lorem Ipsum
-nnoremap ,l :LoremIpsum<space>
-
-" Taboo Rename
-nnoremap ,r :TabooRename<space>
-nnoremap ,R :TabooReset<cr>
 
 " Add new line below
 nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
@@ -312,8 +309,24 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" Fast Folds
-nnoremap <Leader>a za
+" Replace
+nnoremap ,r :%s///g<Left><Left>
+nnoremap ,rc :%s///gc<Left><Left><Left>
+
+xnoremap ,r :%s///g<Left><Left>
+xnoremap ,rc :%s///gc<Left><Left><Left>
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
 
 " fzf
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.9, 'relative': v:true } }
@@ -370,16 +383,10 @@ nnoremap <Leader>M :Maps<cr>
 nnoremap <Leader>w :WinResizerStartResize<cr>
 
 " Search under cursor for selected text
-nnoremap * yiW/<C-r>"<CR>
-nnoremap # yiW?<C-r>"<CR>
-vnoremap * y/<C-r>"<CR>
-vnoremap # y?<C-r>"<CR>
-
-" Toggle Sign Column
-nnoremap <silent>€ :call ToggleSignColumn()<CR>
-
-" Toggle Numbers
-nnoremap <silent># :call ToggleNumbers()<CR>
+" nnoremap * yiW/<C-r>"<CR>
+" nnoremap # yiW?<C-r>"<CR>
+" vnoremap * y/<C-r>"<CR>
+" vnoremap # y?<C-r>"<CR>
 
 " Yank into system clipboard
 nnoremap <Leader>y "*y
@@ -395,6 +402,10 @@ nnoremap <Leader>u z<Enter>5k5j
 " |plugin-settings|
 " =================
 
+" HTML Syntax Highlighting
+let g:htl_all_templates = 1
+let g:html_indent_style1 = "inc"
+
 " Json
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
@@ -404,12 +415,6 @@ map <Leader><Leader> <Plug>(easymotion-prefix)
 " Rainbow Parentheses
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 let g:rainbow_active = 1
-
-" Dashboard
-let g:dashboard_default_executive ='fzf.vim'
-nnoremap <silent> <Leader>dn :DashboardNewFile<CR>
-nnoremap <Leader>ds :SessionSave
-nnoremap <Leader>dS :SessionLoad
 
 let g:dashboard_custom_shortcut={
     \ 'book_marks'         : 'SPC n  ',
@@ -435,7 +440,7 @@ let g:dashboard_custom_header = [
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger="œ"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
@@ -477,7 +482,7 @@ nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 " Nerd Tree
 let NERDTreeShowBookmarks=1
 nnoremap ,b :Bookmark<CR>
-nnoremap <silent><leader>; :NERDTreeToggle<CR>
+nnoremap <silent><c-k> :NERDTreeToggle<CR>
 let g:NERDTreeGitStatusShowClean = 1
 let NERDTreeIgnore = ['node_modules']
 
