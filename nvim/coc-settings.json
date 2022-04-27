@@ -1,12 +1,4 @@
 {
- "coc.preferences.formatOnSaveFiletypes": ["css",  "markdown", "javascript", 
-     "html", "typescript" ],
- "prettier.eslintIntegration": true,
- "eslint.autoFixOnSave": true,
- "coc.preferences.enableFloatHighlight": false,
- "css.validate": false,
-"javascript.suggestionActions.enabled": false,
-"svelte.enable-ts-plugin": true,
-"prettier.singleQuote": true
-} 
-
+    "eslint.autoFixOnSave": true,
+    "coc.preferences.formatOnSaveFiletypes": ["*"]
+}
