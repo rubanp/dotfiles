@@ -86,17 +86,9 @@ nnoremap <C-L> <C-W>l
 
 call plug#begin('~/.config/nvim/plugged')
 
-" Plug 'simrat39/symbols-outline.nvim' " https://github.com/simrat39/symbols-outline.nvim
-
-" Plug 'leafgarland/typescript-vim' " https://github.com/leafgarland/typescript-vim
-
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " https://github.com/nvim-treesitter/nvim-treesitter
-
 Plug 'jonsmithers/vim-html-template-literals' " https://github.com/jonsmithers/vim-html-template-literals
 
 Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
-
-Plug 'lervag/vimtex' " https://github.com/lervag/vimtex
 
 Plug 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish
 
