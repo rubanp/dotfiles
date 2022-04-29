@@ -1,21 +1,24 @@
 " ============================================
 "
-" |basics|
+" |settings|
 " |plugins|
 " |theme|
-" |functions|
-" |autocommands|
 " |shortcuts|
 " |plugin-settings|
-" |coc-config|
 "
 " ============================================
 
-" |basics|
-" ========
+" ==========
+" |settings|
+" ==========
 
+" Leader
+let mapleader=" "
+nnoremap <SPACE> <Nop>
+
+" Basics
 set spelllang=en_gb
-set textwidth=120
+set textwidth=80
 filetype plugin indent on
 syntax on
 set tabstop=4
@@ -30,8 +33,6 @@ set smartcase
 set formatoptions-=cro
 set nolist
 set noshowmatch
-let mapleader=" "
-nnoremap <SPACE> <Nop>
 set splitbelow
 set splitright
 set conceallevel=2
@@ -46,6 +47,98 @@ set shada=!,'100,<50,s10,h
 set foldmethod=manual
 set foldlevel=99
 
+" Folding
+function! MyFoldText()
+    let line = getline(v:foldstart)
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction
+set foldtext=MyFoldText()
+
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave *.* mkview
+  autocmd BufWinEnter *.* silent! loadview
+augroup END
+
+" =========
+" |plugins|
+" =========
+
+call plug#begin('~/.config/nvim/plugged')
+
+Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
+Plug 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish
+Plug 'tpope/vim-speeddating' " https://github.com/tpope/vim-speeddating
+Plug 'tpope/vim-eunuch' " https://github.com/tpope/vim-eunuch
+Plug 'tpope/vim-commentary' " https://github.com/tpope/vim-commentary
+Plug 'tpope/vim-fugitive' " https://github.com/tpope/vim-fugitive
+Plug 'tpope/vim-surround' " https://github.com/tpope/vim-surround
+Plug 'tpope/vim-repeat' " https://github.com/tpope/vim-repeat
+Plug 'junegunn/vim-easy-align' " https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " https://github.com/junegunn/fzf
+Plug 'junegunn/fzf.vim' " https://github.com/junegunn/fzf.vim
+Plug 'junegunn/goyo.vim' " https://github.com/junegunn/goyo.vim
+Plug 'svermeulen/vim-subversive' " https://github.com/svermeulen/vim-subversive
+Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
+Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
+Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
+Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
+Plug 'jonsmithers/vim-html-template-literals' " https://github.com/jonsmithers/vim-html-template-literals
+Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
+Plug 'unblevable/quick-scope' " https://github.com/unblevable/quick-scope
+Plug 'brooth/far.vim' " https://github.com/brooth/far.vim
+Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
+Plug 'preservim/nerdtree' " https://github.com/preservim/nerdtree
+Plug 'Xuyuanp/nerdtree-git-plugin' " https://github.com/Xuyuanp/nerdtree-git-plugin
+Plug 'PhilRunninger/nerdtree-visual-selection' " https://github.com/PhilRunninger/nerdtree-visual-selection
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
+Plug 'SirVer/ultisnips' " https://github.com/SirVer/ultisnips
+Plug 'honza/vim-snippets' "https://github.com/honza/vim-snippets
+Plug 'vim-scripts/loremipsum' " https://github.com/vim-scripts/loremipsum
+Plug 'dhruvasagar/vim-open-url' " https://github.com/dhruvasagar/vim-open-url
+Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
+Plug 'alvan/vim-closetag' " https://github.com/alvan/vim-closetag
+Plug 'simeji/winresizer' " https://github.com/simeji/winresizer
+Plug 'easymotion/vim-easymotion' " https://github.com/easymotion/vim-easymotion
+Plug 'mattn/emmet-vim' " https://github.com/mattn/emmet-vim
+Plug 'edkolev/tmuxline.vim' " https://github.com/edkolev/tmuxline.vim
+Plug 'kyazdani42/nvim-web-devicons' " https://github.com/kyazdani42/nvim-web-devicons
+Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
+
+call plug#end()
+
+" =======
+" |theme|
+" =======
+
+let g:airline_theme='papercolor'
+set termguicolors
+highlight Folded guifg=#949494
+
+" PMenu
+set background=dark
+colorscheme onehalfdark
+
+" Make background transparent
+highlight Normal guibg=none
+highlight NonText guibg=none
+highlight LineNr guibg=none
+highlight SignColumn guibg=none ctermbg=none
+highlight clear SignColumn
+highlight CursorLine ctermfg=none guibg=none
+
+" ===========
+" |shortcuts|
+" ===========
+
 " Better Movement
 nnoremap j gj
 nnoremap k gk
@@ -57,13 +150,6 @@ nnoremap J mzJ`z
 
 " Yank till end of line
 nnoremap Y yg_
-
-" " Better Undo
-" inoremap , ,<c-g>u
-" inoremap . .<c-g>u
-" inoremap [ [<c-g>u
-" inoremap ? ?<c-g>u
-" inoremap ! !<c-g>u
 
 " Move Text (using Option + j: ∆ and Option + k:˚)
 vnoremap <silent>∆ :m '>+1<cr>gv=gv
@@ -81,117 +167,76 @@ nnoremap cN *``cgN
 nnoremap <C-H> <C-W>h
 nnoremap <C-L> <C-W>l
 
-" |plugins|
+" Set marks with 'gm' instead of 'm'
+nnoremap gm m
+
+" Toggle viewing fold column
+nnoremap <silent>† :call FoldColumnToggle()<cr>
+function! FoldColumnToggle()
+    if &foldcolumn
+        setlocal foldcolumn=0
+    else
+        setlocal foldcolumn=4
+    endif
+endfunction
+
+" Turn off search highlighting
+nnoremap <silent> <esc><esc> :nohlsearch<cr>
+
+" Add new line below
+nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
+nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+
+"Remove all trailing whitespace
+nnoremap <silent><Leader>0 :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" Toggle Conceal Level
+nnoremap coe :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>
+
+" Replace
+nnoremap ,r :%s///g<Left><Left>
+nnoremap ,rc :%s///gc<Left><Left><Left>
+xnoremap ,r :%s///g<Left><Left>
+xnoremap ,rc :%s///gc<Left><Left><Left>
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+
+" Yank into system clipboard
+nnoremap <Leader>y "*y
+vnoremap <Leader>y "*y
+
+" Select all
+nnoremap <Leader>z ggVG$
+
+" Move up & Pad Top
+nnoremap <Leader>u z<Enter>5k5j
+
+" =================
+" |plugin-settings|
+" =================
+
+" EasyAlign
 " =========
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
 
-call plug#begin('~/.config/nvim/plugged')
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
-Plug 'jonsmithers/vim-html-template-literals' " https://github.com/jonsmithers/vim-html-template-literals
 
-Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
+" fzf
+" ====
 
-Plug 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish
-
-Plug 'tpope/vim-speeddating' " https://github.com/tpope/vim-speeddating
-
-Plug 'tpope/vim-repeat' " https://gihtub.com/tpope/vim-repeat
-
-Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
-
-Plug 'glepnir/dashboard-nvim' " https://github.com/glepnir/dashboard-nvim
-
-Plug 'unblevable/quick-scope' " https://github.com/unblevable/quick-scope
-
-Plug 'gcmt/taboo.vim' " https://github.com/gcmt/taboo.vim
-
-Plug 'brooth/far.vim' " https://github.com/brooth/far.vim
-
-Plug 'svermeulen/vim-subversive' " https://github.com/svermeulen/vim-subversive
-
-Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
-
-Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
-
-Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
-
-Plug 'preservim/nerdtree' " https://github.com/preservim/nerdtree
-
-Plug 'Xuyuanp/nerdtree-git-plugin' " https://github.com/Xuyuanp/nerdtree-git-plugin
-
-Plug 'PhilRunninger/nerdtree-visual-selection' " https://github.com/PhilRunninger/nerdtree-visual-selection
-
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
-
-Plug 'junegunn/vim-easy-align' " https://github.com/junegunn/vim-easy-align
-
-Plug 'SirVer/ultisnips' " https://github.com/SirVer/ultisnips
-
-Plug 'honza/vim-snippets' "https://github.com/honza/vim-snippets
-
-Plug 'tpope/vim-fugitive' " https://github.com/tpope/vim-fugitive
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
-
-Plug 'vim-scripts/loremipsum' " https://github.com/vim-scripts/loremipsum
-
-Plug 'tpope/vim-eunuch' " https://github.com/tpope/vim-eunuch
-
-Plug 'dhruvasagar/vim-open-url' " https://github.com/dhruvasagar/vim-open-url
-
-Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
-
-Plug 'junegunn/goyo.vim' " https://github.com/junegunn/goyo.vim
-
-Plug 'alvan/vim-closetag' " https://github.com/alvan/vim-closetag
-
-Plug 'tpope/vim-commentary' " https://github.com/tpope/vim-commentary
-
-Plug 'simeji/winresizer' " https://github.com/simeji/winresizer
-
-Plug 'kyazdani42/nvim-web-devicons' " https://github.com/kyazdani42/nvim-web-devicons
-
-Plug 'tpope/vim-surround' " https://github.com/tpope/vim-surround
-
-Plug 'easymotion/vim-easymotion' " https://github.com/easymotion/vim-easymotion
-
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " https://github.com/junegunn/fzf
-
-Plug 'junegunn/fzf.vim' " https://github.com/junegunn/fzf.vim
-
-Plug 'mattn/emmet-vim' " https://github.com/mattn/emmet-vim
-
-Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
-
-Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
-
-Plug 'edkolev/tmuxline.vim' " https://github.com/edkolev/tmuxline.vim
-
-Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
-
-call plug#end()
-
-" |theme|
-" =====
-
-" PMenu
-set background=dark
-colorscheme onehalfdark
-
-let g:airline_theme='papercolor'
-set termguicolors
-highlight Folded guifg=#949494
-
-" Make background transparent
-highlight Normal guibg=none
-highlight NonText guibg=none
-highlight LineNr guibg=none
-highlight SignColumn guibg=none ctermbg=none
-highlight clear SignColumn
-highlight CursorLine ctermfg=none guibg=none
-
-" fzf colors
-" Customize fzf colors to match your color scheme
-" - fzf#wrap translates this to a set of `--color` options
 let g:fzf_colors =
     \ { 'fg':      ['fg', 'Normal'],
     \ 'bg':      ['bg', 'Normal'],
@@ -207,48 +252,54 @@ let g:fzf_colors =
     \ 'spinner': ['fg', 'Label'],
     \ 'header':  ['fg', 'Comment'] }
 
-" |functions|
-" ===========
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.9, 'relative': v:true } }
 
-" Toggle Word Wrap
-nnoremap <silent>~ :set wrap!<cr>
-
-" Folding Setup
-function! MyFoldText()
-    let line = getline(v:foldstart)
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction
-set foldtext=MyFoldText()
-
-function! FoldColumnToggle()
-    if &foldcolumn
-        setlocal foldcolumn=0
-    else
-        setlocal foldcolumn=4
-    endif
+function! s:list_buffers()
+    redir => list
+    silent ls
+    redir END
+    return split(list, "\n")
 endfunction
 
-" |autocommands|
-" ==============
-" Start Dashboard when Vim is started without file arguments.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | Dashboard | endif
+function! s:delete_buffers(lines)
+    execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
 
-" Folding
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave *.* mkview
-  autocmd BufWinEnter *.* silent! loadview
-augroup END
+command! BD call fzf#run(fzf#wrap({
+            \ 'source': s:list_buffers(),
+            \ 'sink*': { lines -> s:delete_buffers(lines) },
+            \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+            \ }))
 
-" Goyo Dimensions
+nnoremap <Leader>p :Buffers<cr>
+nnoremap <Leader>B :BD<cr>
+nnoremap <Leader>W :Windows<cr>
+nnoremap <Leader>l :BLines<cr>
+nnoremap <Leader>L :Lines<cr>
+nnoremap <Leader>r :Rg<cr>
+nnoremap <Leader>f :Files<cr>
+nnoremap <Leader>g :GFiles<cr>
+nnoremap <Leader>G :GFiles?<cr>
+nnoremap <Leader>h :History:<cr>
+nnoremap <Leader>H :History<cr>
+nnoremap <Leader>/ :History/<cr>
+nnoremap <Leader>t :BTags<cr>
+nnoremap <Leader>T :Tags<cr>
+nnoremap <Leader>c :BCommits<cr>
+nnoremap <Leader>C :Commits<cr>
+nnoremap <Leader>E :Helptags<cr>
+nnoremap <Leader>q :Snippets<cr>
+nnoremap <Leader>m :Marks<cr>
+nnoremap <Leader>M :Maps<cr>
+
+" WinResizer
+" ==========
+nnoremap <Leader>w :WinResizerStartResize<cr>
+
+" Goyo
+" =====
+nnoremap <silent> ,g :silent! Goyo<cr>
+
 let g:goyo_height= '80%'
 let g:goyo_width= '80%'
 
@@ -273,183 +324,51 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 
-" |shortcuts|
-" ===========
-nnoremap gm m
-map q: <Nop>
-
-nnoremap <silent>† :call FoldColumnToggle()<cr>
-
-nnoremap <silent> <esc><esc> :nohlsearch<cr>
-nnoremap <silent> ,g :silent! Goyo<cr>
-
-" Add new line below
-nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
-nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
-
-"Remove all trailing whitespace
-nnoremap <silent><Leader>0 :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-
-" Toggle Conceal Level
-nnoremap coe :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>
-nnoremap [oe :setlocal conceallevel=<c-r>=&conceallevel > 0 ? &conceallevel - 1 : 0<cr><cr>
-nnoremap ]oe :setlocal conceallevel=<c-r>=&conceallevel < 2 ? &conceallevel + 1 : 2<cr><cr>
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-" Replace
-nnoremap ,r :%s///g<Left><Left>
-nnoremap ,rc :%s///gc<Left><Left><Left>
-
-xnoremap ,r :%s///g<Left><Left>
-xnoremap ,rc :%s///gc<Left><Left><Left>
-
-" Search for selected text, forwards or backwards.
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
-
-" fzf
-let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.9, 'relative': v:true } }
-
-function! s:list_buffers()
-    redir => list
-    silent ls
-    redir END
-    return split(list, "\n")
-endfunction
-
-function! s:delete_buffers(lines)
-    execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
-endfunction
-
-command! BD call fzf#run(fzf#wrap({
-            \ 'source': s:list_buffers(),
-            \ 'sink*': { lines -> s:delete_buffers(lines) },
-            \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
-            \ }))
-
-nnoremap <Leader>p :Buffers<cr>
-nnoremap <Leader>B :BD<cr>
-nnoremap <Leader>W :Windows<cr>
-nnoremap <Leader>dc :Colors<cr>
-
-nnoremap <Leader>l :BLines<cr>
-nnoremap <Leader>L :Lines<cr>
-nnoremap <Leader>r :Rg<cr>
-
-nnoremap <Leader>f :Files<cr>
-nnoremap <Leader>g :GFiles<cr>
-nnoremap <Leader>G :GFiles?<cr>
-
-nnoremap <Leader>h :History:<cr>
-nnoremap <Leader>H :History<cr>
-nnoremap <Leader>/ :History/<cr>
-
-nnoremap <Leader>t :BTags<cr>
-nnoremap <Leader>T :Tags<cr>
-
-nnoremap <Leader>c :BCommits<cr>
-nnoremap <Leader>C :Commits<cr>
-
-nnoremap <Leader>E :Helptags<cr>
-
-nnoremap <Leader>q :Snippets<cr>
-
-nnoremap <Leader>m :Marks<cr>
-
-nnoremap <Leader>M :Maps<cr>
-
-" Pane Resizing
-nnoremap <Leader>w :WinResizerStartResize<cr>
-
-" Search under cursor for selected text
-" nnoremap * yiW/<C-r>"<CR>
-" nnoremap # yiW?<C-r>"<CR>
-" vnoremap * y/<C-r>"<CR>
-" vnoremap # y?<C-r>"<CR>
-
-" Yank into system clipboard
-nnoremap <Leader>y "*y
-vnoremap <Leader>y "*y
-nnoremap <Leader>A ggVG$"*y<esc>0
-
-" Select all
-nnoremap <Leader>z ggVG$
-
-" Move up & Pad Top
-nnoremap <Leader>u z<Enter>5k5j
-
-" |plugin-settings|
-" =================
 
 " HTML Syntax Highlighting
+" ========================
 let g:htl_all_templates = 1
 let g:html_indent_style1 = "inc"
 
-" Json
+" Jsonc
+" =====
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
-" Easy motion
+" EasyMotion
+" ==========
 map <Leader><Leader> <Plug>(easymotion-prefix)
 
 " Rainbow Parentheses
+" ===================
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 let g:rainbow_active = 1
 
-let g:dashboard_custom_shortcut={
-    \ 'book_marks'         : 'SPC n  ',
-    \ 'change_colorscheme' : 'SPC d c',
-    \ 'find_file'          : 'SPC f  ',
-    \ 'find_history'       : 'SPC H  ',
-    \ 'find_word'          : 'SPC r  ',
-    \ 'last_session'       : 'SPC d S',
-    \ 'new_file'           : 'SPC d n'
-\ }
-
-let g:dashboard_custom_header = [
-    \ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-    \ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-    \ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-    \ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-    \ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-    \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-\]
-
 " Quickscope
+" ==========
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Ultisnips
+" =========
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Far.vim
+" =======
 let g:far#auto_preview = 1
 let g:far#enable_undo = 1
 
 " Vim Cutlass
+" ===========
 nnoremap m d
 xnoremap m d
-
 nnoremap mm dd
 nnoremap M D
 
 " Vim Yoink
+" =========
 nnoremap <leader>Y :Yanks<cr>
-
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
 nmap <c-p> <plug>(YoinkPostPasteSwapForward)
 nmap p <plug>(YoinkPaste_p)
@@ -463,22 +382,22 @@ let g:yoinkSwapClampAtEnds = 1
 let g:yoinkSavePersistently = 1
 
 " Vim Subversive
+" ==============
 nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
-
 nmap <leader>s <plug>(SubversiveSubstituteRange)
 xmap <leader>s <plug>(SubversiveSubstituteRange)
 nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 
 " Nerd Tree
+" =========
 let NERDTreeShowBookmarks=1
 nnoremap ,b :Bookmark<CR>
 nnoremap <silent><c-k> :NERDTreeToggle<CR>
 let g:NERDTreeGitStatusShowClean = 1
 let NERDTreeIgnore = ['node_modules']
 
-" Nerd Tree Syntax Highlighting
 let s:brown = "905532"
 let s:aqua =  "3AFFDB"
 let s:blue = "689FB6"
@@ -497,25 +416,22 @@ let s:lightGreen = "31B53E"
 let s:white = "FFFFFF"
 let s:rspec_red = 'FE405F'
 let s:git_orange = 'F54D27'
-
 let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
 let g:NERDTreeExtensionHighlightColor['css'] = s:salmon " sets the color of css files to blue
-
 let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
 let g:NERDTreeExtensionHighlightColor['html'] = s:blue " sets the color of css files to blue
-
 let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
 let g:NERDTreeExtensionHighlightColor['js'] = s:green " sets the color of css files to blue
-
 let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
 let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
 
 " Vim Rooter
+" ==========
 let g:rooter_patterns = ['.git', 'package.json']
 let g:rooter_change_directory_for_non_project_files = 'current'
 
 " Airline
-let g:airline#extensions#taboo#enabled = 1
+" =======
 let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#enabled = 1
@@ -532,19 +448,18 @@ let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'x', 'y', 'erro
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_nr = 0
 
-" Taboo.vim
-let g:taboo_renamed_tab_format = '%l'
-
-" Refresh Dev Icons on sourcing vimrc
+" Dev Icons
+" =========
 if exists('g:loaded_webdevicons')
     call webdevicons#refresh()
 endif
 
 " Emmet
+" =====
 let g:user_emmet_leader_key=','
 
-" |coc-config|
-" ============
+" CoC
+" ====
 hi PMenu guifg=#dcdfe8 guibg=#2f323b
 hi CocWarningFloat guifg=#f19746 guibg=#2f323b
 hi CocErrorFloat guifg=#ea3524 guibg=#2f323b
@@ -552,19 +467,18 @@ hi CocHintFloat guifg=#dcdfe8 guibg=#2f323b
 hi CocInfoFloat guifg=#73aae6 guibg=#2f323b
 autocmd FileType markdown let b:coc_suggest_disable = 1
 
-" Diagnostics Navigation
+" ==Diagnostics Navigation==
 nmap <silent>]g <Plug>(coc-diagnostic-prev)
 nmap <silent>[g <Plug>(coc-diagnostic-next)
 
-" GoTo code navigation.
+" ==GoTo code navigation==
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gt <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
+" ==Show Documentation==
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
@@ -575,16 +489,16 @@ function! s:show_documentation()
     endif
 endfunction
 
-" Symbol renaming.
+" ==Symbol renaming==
 nmap ,rn <Plug>(coc-rename)
 
-" CocList Mappings
+" ==CocList Mappings==
 " option + d
 nnoremap <silent><nowait> ∂  :<C-u>CocList diagnostics<cr>
 " option + o
 nnoremap <silent><nowait> ø  :<C-u>CocList outline<cr>
 
-" Coc Git
+" ==Coc Git==
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
@@ -592,6 +506,6 @@ nmap ]g <Plug>(coc-git-nextchunk)
 nmap [c <Plug>(coc-git-prevconflict)
 nmap ]c <Plug>(coc-git-nextconflict)
 
-" Coc Airline Settings
+" ==Coc Airline Settings==
 let airline#extensions#coc#error_symbol = 'Error: '
 let airline#extensions#coc#warning_symbol = 'Warning: '
