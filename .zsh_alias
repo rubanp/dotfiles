@@ -38,7 +38,7 @@ alias v="nvim"
 
 alias rg="rg -p"
 
-alias rr=". ranger"
+alias rr="ranger"
 
 alias lg="lazygit"
 
