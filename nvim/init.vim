@@ -46,6 +46,7 @@ set fo=tcrwa
 set shada=!,'100,<50,s10,h
 set foldmethod=manual
 set foldlevel=99
+let g:loaded_perl_provider = 0
 
 " Folding
 function! MyFoldText()
