@@ -2,63 +2,37 @@
 # =======
 
 alias l="lsd -1 --group-dirs first"
-
 alias ll="lsd -1lh --group-dirs first"
-
 alias la="lsd -1A --group-dirs first"
-
 alias lla="lsd -1Alh --group-dirs first"
-
 function cl () {
 	cd "$1" && l;
 }
-
-function cla () {
-	cd "$1" && la;
-}
-
 function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
-
 alias ..="cd .."
-alias ..2="cd ../.."
-alias ..3="cd ../../.."
-alias ..4="cd ../../../.."
-alias ..5="cd ../../../../.."
+alias ...="cd ../.."
+alias ....="cd ../../.."
 
 # Programs
 # =======
-
-function define() {
-    dict "$1" | bat;
-}
-
 alias vim="nvim"
-
 alias v="nvim"
-
-alias rg="rg -p"
-
-alias rr="ranger"
-
-alias lg="lazygit"
-
-alias less="less -R"
+function ranger {
+	local IFS=$'\t\n'
+	local tempfile="$(mktemp -t tmp.XXXXXX)"
+	local ranger_cmd=(
+		command
+		ranger
+		--cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+	)	
+	${ranger_cmd[@]} "$@"
+	if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+		cd -- "$(cat "$tempfile")" || return
+	fi
+	command rm -f -- "$tempfile" 2>/dev/null
+}
 
 alias tree="tree -aI '.git|.DS_Store|tags|node_modules'"
 alias tree2="tree -L 2 | bat"
 alias tree3="tree -L 3 | bat"
 alias tree4="tree -L 4 | bat"
-
-alias download="yt-dlp"
-
-# Config
-# =======
-alias vrc="vim ~/.config/nvim/init.vim"
-alias zrc="vim ~/.zshrc"
-alias arc="vim ~/.zsh_alias"
-alias src="source ~/.zshrc"
-
-# Git
-# =======
-alias gs="git status -s"
-alias gl="git log | bat"
