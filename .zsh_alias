@@ -2,9 +2,9 @@
 # =======
 
 alias l="lsd -1 --group-dirs first"
-alias ll="lsd -1lh --group-dirs first"
+alias lh="lsd -1lh --group-dirs first"
 alias la="lsd -1A --group-dirs first"
-alias lla="lsd -1Alh --group-dirs first"
+alias lah="lsd -1Alh --group-dirs first"
 function cl () {
 	cd "$1" && l;
 }
