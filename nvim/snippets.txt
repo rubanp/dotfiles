@@ -1,0 +1,24 @@
+Custom Element
+==============
+import minireset from '../minireset.js';
+class CustomElem extends HTMLElement {
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    shadow.appendChild(minireset);
+    const component = document.createElement('div') as HTMLDivElement;
+    component.innerHTML = `
+    <style>
+        h1 {
+            color: blue;
+        }
+    </style>
+    <h1>Hello World</h1>
+    <ul>
+        <li>How you doing?</li>
+    </ul>
+    `;
+    shadow.appendChild(component);
+  }
+}
+export default CustomElem;

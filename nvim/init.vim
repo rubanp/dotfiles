@@ -140,6 +140,10 @@ highlight CursorLine ctermfg=none guibg=none
 " |shortcuts|
 " ===========
 
+" Create boilerplate for custom element
+nnoremap ,e "zp
+nnoremap ,l :%s/CustomElem/
+
 " Edit and source init.vim
 nnoremap <Leader>e :tabedit ~/dotfiles/nvim/init.vim<cr>
 nnoremap <Leader>r :source ~/.config/nvim/init.vim<cr>:tabedit<cr>:q<cr>
