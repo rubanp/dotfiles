@@ -355,10 +355,9 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Ultisnips
 " =========
-let g:UltiSnipsSnippetDirectories=["Ultisnips", "javascript.snippets"]
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-g>"
+let g:UltiSnipsJumpBackwardTrigger="<c-a>"
 
 " Far.vim
 " =======
