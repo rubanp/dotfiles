@@ -102,7 +102,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin' " https://github.com/Xuyuanp/nerdtree-git-plu
 Plug 'PhilRunninger/nerdtree-visual-selection' " https://github.com/PhilRunninger/nerdtree-visual-selection
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
 Plug 'SirVer/ultisnips' " https://github.com/SirVer/ultisnips
-Plug 'honza/vim-snippets' "https://github.com/honza/vim-snippets
 Plug 'vim-scripts/loremipsum' " https://github.com/vim-scripts/loremipsum
 Plug 'dhruvasagar/vim-open-url' " https://github.com/dhruvasagar/vim-open-url
 Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
@@ -113,6 +112,7 @@ Plug 'mattn/emmet-vim' " https://github.com/mattn/emmet-vim
 Plug 'edkolev/tmuxline.vim' " https://github.com/edkolev/tmuxline.vim
 Plug 'kyazdani42/nvim-web-devicons' " https://github.com/kyazdani42/nvim-web-devicons
 Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
+Plug 'honza/vim-snippets' " https://github.com/honza/vim-snippets
 
 call plug#end()
 
@@ -351,6 +351,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " Ultisnips
 " =========
+let g:UltiSnipsSnippetDirectories=["Ultisnips", "javascript.snippets"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
