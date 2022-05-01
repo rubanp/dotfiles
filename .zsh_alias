@@ -17,6 +17,7 @@ alias ....="cd ../../.."
 # =======
 alias vim="nvim"
 alias v="nvim"
+alias lg="lazygit"
 function ranger {
 	local IFS=$'\t\n'
 	local tempfile="$(mktemp -t tmp.XXXXXX)"
