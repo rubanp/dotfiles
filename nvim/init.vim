@@ -140,6 +140,10 @@ highlight CursorLine ctermfg=none guibg=none
 " |shortcuts|
 " ===========
 
+" Edit and source init.vim
+nnoremap <Leader>e :tabedit ~/dotfiles/nvim/init.vim<cr>
+nnoremap <Leader>r :source ~/.config/nvim/init.vim<cr>:tabedit<cr>:q<cr>
+
 " Better Movement
 nnoremap j gj
 nnoremap k gk
@@ -277,7 +281,7 @@ nnoremap <Leader>B :BD<cr>
 nnoremap <Leader>W :Windows<cr>
 nnoremap <Leader>l :BLines<cr>
 nnoremap <Leader>L :Lines<cr>
-nnoremap <Leader>r :Rg<cr>
+nnoremap <Leader>R :Rg<cr>
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>g :GFiles<cr>
 nnoremap <Leader>G :GFiles?<cr>
