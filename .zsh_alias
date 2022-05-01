@@ -31,7 +31,7 @@ function ranger {
 	fi
 	command rm -f -- "$tempfile" 2>/dev/null
 }
-
+alias rr="ranger"
 alias tree="tree -aI '.git|.DS_Store|tags|node_modules'"
 alias tree2="tree -L 2 | bat"
 alias tree3="tree -L 3 | bat"
