@@ -27,6 +27,9 @@ source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 # FZF
 source ~/.zsh/plugins/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh
 
+# Forgit
+source ~/.zsh/plugins/forgit/forgit.plugin.zsh
+
 # Keep Directory History
 # =========================================
 setopt AUTO_PUSHD                  # pushes the old directory onto the stack
