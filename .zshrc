@@ -27,6 +27,10 @@ source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 # FZF
 source ~/.zsh/plugins/fzf-zsh-plugin/fzf-zsh-plugin.plugin.zsh
 
+# FZF Marks
+source ~/.zsh/plugins/fzf-marks/fzf-marks.plugin.zsh 
+export FZF_MARKS_COMMAND="fzf --height 100% --reverse"
+
 # Forgit
 source ~/.zsh/plugins/forgit/forgit.plugin.zsh
 
