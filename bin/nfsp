@@ -29,6 +29,8 @@ tmux send-keys -t 'nvim' 'git init && git add *' C-m
 sleep 1
 tmux send-keys -t 'nvim' 'git add .gitignore .eslintrc.json' C-m
 sleep 1
+tmux send-keys -t 'nvim' 'git add .prettierrc.yaml .prettierignore' C-m
+sleep 1
 
 echo "Creating first git commit..."
 tmux send-keys -t 'nvim' "git commit -m 'first commit'" C-m
