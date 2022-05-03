@@ -35,8 +35,6 @@ sleep 1
 echo "Creating first git commit..."
 tmux send-keys -t 'nvim' "git commit -m 'first commit'" C-m
 sleep 2
-tmux send-keys -t 'nvim' C-l
-sleep 0.5
 
 echo "Initialising vim..."
 tmux send-keys -t 'nvim' "vim"
@@ -112,9 +110,6 @@ sleep 0.5
 echo "Changing directory into ~/Code/personal/$1..."
 tmux send-keys -t 'zsh' "cd ~/Code/personal/$1" C-m
 sleep 0.5
-tmux send-keys -t 'nvim' C-l
-sleep 0.5
-
 echo "Window 4 'zsh' created."
 sleep 0.25
 
@@ -127,9 +122,6 @@ sleep 0.5
 echo "Changing directory into ~/Code/personal/$1..."
 tmux send-keys -t 'vite' "cd ~/Code/personal/$1" C-m
 sleep 0.5
-tmux send-keys -t 'nvim' C-l
-sleep 0.5
-
 echo "Initialising vite dev server..."
 tmux send-keys -t 'vite' "npm run dev"
 sleep 1
