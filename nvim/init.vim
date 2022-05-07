@@ -21,9 +21,9 @@ set spelllang=en_gb
 set textwidth=80
 filetype plugin indent on
 syntax on
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 set incsearch
 set hlsearch
@@ -92,7 +92,7 @@ Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
 Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
-Plug 'jonsmithers/vim-html-template-literals' " https://github.com/jonsmithers/vim-html-template-literals
+Plug 'jonsmithers/vim-html-template-literals' "https://github.com/jonsmithers/vim-html-template-literals
 Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
 Plug 'unblevable/quick-scope' " https://github.com/unblevable/quick-scope
 Plug 'brooth/far.vim' " https://github.com/brooth/far.vim
@@ -113,6 +113,9 @@ Plug 'edkolev/tmuxline.vim' " https://github.com/edkolev/tmuxline.vim
 Plug 'kyazdani42/nvim-web-devicons' " https://github.com/kyazdani42/nvim-web-devicons
 Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
 Plug 'honza/vim-snippets' " https://github.com/honza/vim-snippets
+Plug 'ap/vim-css-color' " https://github.com/ap/vim-css-color
+Plug 'hail2u/vim-css3-syntax' " https://github.com/hail2u/vim-css3-syntax
+Plug 'andymass/vim-matchup' " https://github.com/andymass/vim-matchup
 
 call plug#end()
 
@@ -333,11 +336,17 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 
-
 " HTML Syntax Highlighting
 " ========================
-let g:htl_all_templates = 1
+let g:htl_css_templates = 1
 let g:html_indent_style1 = "inc"
+let g:closetag_filetypes = 'html,xhtml,phtml,javascript,typescript'
+let g:closetag_regions = {
+      \ 'typescript.tsx': 'jsxRegion,tsxRegion,litHtmlRegion',
+      \ 'javascript.jsx': 'jsxRegion,litHtmlRegion',
+      \ 'javascript':     'litHtmlRegion',
+      \ 'typescript':     'litHtmlRegion',
+      \ }
 
 " Jsonc
 " =====
@@ -436,7 +445,7 @@ let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the c
 
 " Vim Rooter
 " ==========
-let g:rooter_patterns = ['.git', 'package.json']
+let g:rooter_patterns = ['.git']
 let g:rooter_change_directory_for_non_project_files = 'current'
 
 " Airline
