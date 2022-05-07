@@ -39,6 +39,12 @@ setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
 autoload -U compinit && compinit   # load + start completion
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
 
+# Keyboard Shortcuts
+# =========================================
+bindkey -s '^o' 'nvim $(fzf)^M' # Open file in vim
+bindkey -s '^g' 'fzm^M' # Go to bookmarked directory
+bindkey -s '^z' 'source ~/.zshrc^M' # Source .zshrc
+
 # Theme
 # =========================================
 source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
