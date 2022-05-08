@@ -1,3 +1,4 @@
+
 #!/bin/zsh
 
 # Start new session
@@ -12,7 +13,7 @@ echo "Building window 1 'nvim'..."
 tmux rename-window -t 1 'nvim'
 sleep 0.5
 
-echo "Downloading fullstack boilerplate into ~/Code/$1..."
+echo "Downloading fullstack template into ~/Code/$1..."
 tmux send-keys -t 'nvim' "svn export https://github.com/rubanp/fullstack-template.git/trunk ~/Code/$1" C-m
 sleep 3
 
@@ -27,7 +28,9 @@ sleep 3
 echo "Initialising git..."
 tmux send-keys -t 'nvim' 'git init' C-m
 sleep 1
-tmux send-keys -t 'nvim' 'git add .gitignore .prettierrc.yaml' C-m
+tmux send-keys -t 'nvim' 'git add .gitignore .eslintrc.json' C-m
+sleep 1
+tmux send-keys -t 'nvim' 'git add .prettierignore .prettierrc.yaml' C-m
 sleep 1
 tmux send-keys -t 'nvim' 'git add *' C-m
 sleep 1
@@ -54,7 +57,7 @@ echo "Changing directory into ~/Code/$1..."
 tmux send-keys -t 'ranger' "cd ~/Code/$1" C-m
 sleep 0.5
 
-echo "Initialising ranger"
+echo "Initialising ranger..."
 tmux send-keys -t 'ranger' "ranger"
 sleep 1
 

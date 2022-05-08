@@ -12,8 +12,8 @@ echo "Building window 1 'nvim'..."
 tmux rename-window -t 1 'nvim'
 sleep 0.5
 
-echo "Downloading frontend boilerplate into ~/Code/$1..."
-tmux send-keys -t 'nvim' "svn export https://github.com/rubanp/lit-js.git/trunk ~/Code/$1" C-m
+echo "Downloading frontend template into ~/Code/$1..."
+tmux send-keys -t 'nvim' "svn export https://github.com/rubanp/frontend-template.git/trunk ~/Code/$1" C-m
 sleep 3
 
 echo "Changing directory into ~/Code/$1..."
@@ -27,7 +27,9 @@ sleep 3
 echo "Initialising git..."
 tmux send-keys -t 'nvim' 'git init' C-m
 sleep 1
-tmux send-keys -t 'nvim' 'git add .gitignore .prettierrc.yaml' C-m
+tmux send-keys -t 'nvim' 'git add .gitignore .eslintrc.json' C-m
+sleep 1
+tmux send-keys -t 'nvim' 'git add .prettierignore .prettierrc.yaml' C-m
 sleep 1
 tmux send-keys -t 'nvim' 'git add *' C-m
 sleep 1
