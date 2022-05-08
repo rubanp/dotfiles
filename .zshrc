@@ -41,9 +41,10 @@ zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;
 
 # Keyboard Shortcuts
 # =========================================
-bindkey -s '^o' 'nvim $(fzf)^M' # Open file in vim
-bindkey -s '^g' 'fzm^M' # Go to bookmarked directory
+bindkey -s '^o' 'nvim $(fzf)^M' # Open file in vim through fzf
+bindkey -s '^g' 'fzm^M' # Go to bookmarked directory through fzf
 bindkey -s '^z' 'source ~/.zshrc^M' # Source .zshrc
+bindkey -s '^m' 'tfz^M' # Attach to tmux session through fzf
 
 # Theme
 # =========================================
