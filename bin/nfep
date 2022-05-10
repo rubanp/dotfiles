@@ -22,12 +22,24 @@ sleep 0.5
 
 echo "Installing node modules..."
 tmux send-keys -t 'nvim' "npm i" C-m
-sleep 3
+sleep 5
+echo "Still installing node modules..."
+sleep 5
+
+echo "Setting project name..."
+tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$1/g' src/index.html" C-m
+sleep 0.25
+tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$1/g' package.json" C-m
+sleep 0.25
 
 echo "Initialising git..."
 tmux send-keys -t 'nvim' 'git init' C-m
 sleep 1
 tmux send-keys -t 'nvim' 'git add .gitignore .eslintrc.json' C-m
+sleep 1
+tmux send-keys -t 'nvim' 'git add .stylelintrc.json .stylelintrc.css.json' C-m
+sleep 1
+tmux send-keys -t 'nvim' 'git add .npmrc' C-m
 sleep 1
 tmux send-keys -t 'nvim' 'git add .prettierignore .prettierrc.yaml' C-m
 sleep 1
@@ -112,11 +124,6 @@ sleep 0.5
 echo "Changing directory into ~/Code/$1..."
 tmux send-keys -t 'zsh' "cd ~/Code/$1" C-m
 sleep 0.5
-echo "Setting project name..."
-tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$1/g' src/index.html" C-m
-sleep 0.25
-tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$1/g' package.json" C-m
-sleep 0.25
 echo "Window 4 'zsh' created."
 sleep 0.25
 
