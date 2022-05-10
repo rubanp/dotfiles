@@ -116,6 +116,8 @@ Plug 'honza/vim-snippets' " https://github.com/honza/vim-snippets
 Plug 'ap/vim-css-color' " https://github.com/ap/vim-css-color
 Plug 'hail2u/vim-css3-syntax' " https://github.com/hail2u/vim-css3-syntax
 Plug 'andymass/vim-matchup' " https://github.com/andymass/vim-matchup
+Plug 'lukas-reineke/indent-blankline.nvim' " https://github.com/lukas-reineke/indent-blankline.nvim
+Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
 
 call plug#end()
 
@@ -150,6 +152,9 @@ nnoremap ,l :%s/CustomElem/
 " Edit and source init.vim
 nnoremap <Leader>e :tabedit ~/dotfiles/nvim/init.vim<cr>
 nnoremap <Leader>r :source ~/.config/nvim/init.vim<cr>:tabedit<cr>:q<cr>
+
+" Reload buffer
+nnoremap <Leader>k :e!<cr>
 
 " Better Movement
 nnoremap j gj
@@ -236,6 +241,12 @@ nnoremap <Leader>u z<Enter>5k5j
 " =================
 " |plugin-settings|
 " =================
+
+" IndenLine
+let g:indentLine_enabled = 1
+let g:indentLine_setColors = 0
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_setConceal = 0
 
 " EasyAlign
 " =========
@@ -478,6 +489,9 @@ let g:user_emmet_leader_key=','
 
 " CoC
 " ====
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-eslint', 'coc-tsserver', 'coc-snippets', 'coc-prettier', 'coc-sql']
+autocmd FileType css setl iskeyword+=-
+
 hi PMenu guifg=#dcdfe8 guibg=#2f323b
 hi CocWarningFloat guifg=#f19746 guibg=#2f323b
 hi CocErrorFloat guifg=#ea3524 guibg=#2f323b

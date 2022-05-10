@@ -1,7 +1,8 @@
 {
-    "eslint.autoFixOnSave": true,
-    "coc.preferences.formatOnSaveFiletypes": [
-        "*"
-    ],
-    "suggest.noselect": false
+  "eslint.autoFixOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
+  "suggest.noselect": false,
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "stylelintplus.cssInJs": true,
+  "diagnostic.checkCurrentLine": true
 }
