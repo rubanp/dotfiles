@@ -8,9 +8,6 @@
 "   for installation instructions, a light color scheme, versions for other
 "   editors/terminals, and a matching theme for vim-airline.
 " ==============================================================================
-" Replaced #282c34 with #343a43 for background / black
-" Replaced #5c6370 (241) with #949494 (246) for comments
-
 set background=dark
 highlight clear
 syntax reset
