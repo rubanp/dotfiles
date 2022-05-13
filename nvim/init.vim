@@ -151,6 +151,21 @@ hi FoldColumn guibg=#282828
 " |shortcuts|
 " ===========
 
+" Vim Presentation Mode
+autocmd BufNewFile,BufRead *.vpm call SetVimPresentationMode()
+function SetVimPresentationMode()
+  nnoremap <buffer> <Right> :n<cr>
+  nnoremap <buffer> <Left> :N<cr>
+  if !exists('#goyo')
+    Goyo
+  endif
+endfunction
+
+augroup SyntaxSettings
+  autocmd!
+  autocmd BufNewFile,BufRead *.vpm set syntax=markdown
+augroup END
+
 " Toggle signcolumn
 nnoremap <silent>,s :call ToggleSignColumn()<CR>
 
@@ -276,6 +291,7 @@ nmap ga <Plug>(EasyAlign)
 
 " fzf
 " ====
+let g:fzf_preview_window = ['right:70%:hidden', 'ctrl-/']
 
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
@@ -348,7 +364,7 @@ function! s:goyo_leave()
     silent !tmux set status on
     " silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
   endif
-  hi Normal guibg=#282828NONE ctermbg=NONE
+  hi Normal guibg=NONE ctermbg=NONE
   set number
   set relativenumber
   set signcolumn=yes
@@ -359,7 +375,6 @@ function! s:goyo_leave()
   hi DiffChange guifg=#282828 guibg=#458588
   hi FoldColumn guibg=#282828
   highlight clear SignColumn
-  source ~/Dotfiles/dotfiles/init.vim
 endfunction
 
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
@@ -369,7 +384,7 @@ function! s:goyo_enter()
     silent !tmux set status off
     " silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
   endif
-  hi Normal guibg=#282828NONE ctermbg=NONE
+  hi Normal guibg=NONE ctermbg=NONE
   set norelativenumber
   set nonumber
   set signcolumn=no
