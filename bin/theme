@@ -38,4 +38,4 @@ sed -i "" -e "s/let[ ]g:airline_theme=.*/let g:airline_theme='$AIRLINE'/" /Users
 sed -i "" -e "s/POWERLEVEL9K_DIR_BACKGROUND=.*/POWERLEVEL9K_DIR_BACKGROUND=$POWERLEVEL/" /Users/ruban/dotfiles/.p10k.zsh
 
 # Set background color environment variable
-sed -i -e "s/export BACKGROUND=.*/export BACKGROUND='$NEW_BACKGROUND'/" /Users/ruban/dotfiles/.zshrc
+sed -i "" -e "s/export BACKGROUND=.*/export BACKGROUND='$NEW_BACKGROUND'/" /Users/ruban/dotfiles/.zshrc
