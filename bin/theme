@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Take user input for theme
+THEME=`yq ".themes" /Users/ruban/dotfiles/themes.yaml | fzf | egrep -o "[a-z]*"`
+
+# Set theme as environment variable in .zshrc
+sed -i -e "s/export THEME=.*/export THEME='$THEME'/" /Users/ruban/dotfiles/.zshrc
+
+# Parse theme into options
+ITERM=`yq ".$THEME.iterm" /Users/ruban/dotfiles/themes.yaml`
+VIM=`yq ".$THEME.vim" /Users/ruban/dotfiles/themes.yaml`
+AIRLINE=`yq ".$THEME.airline" /Users/ruban/dotfiles/themes.yaml`
+POWERLEVEL=`yq ".$THEME.powerlevel" /Users/ruban/dotfiles/themes.yaml`
+
+# Set iterm profile
+echo "\033]50;SetProfile=$ITERM\a"
+
+# Set vim theme
+sed -i "" -e "s/colorscheme.*/colorscheme $VIM/" /Users/ruban/dotfiles/nvim/init.vim
+
+# Set airline theme
+sed -i "" -e "s/let[ ]g:airline_theme=.*/let g:airline_theme='$AIRLINE'/" /Users/ruban/dotfiles/nvim/init.vim
+
+# Set p10k dir color
+sed -i "" -e "s/POWERLEVEL9K_DIR_BACKGROUND=.*/POWERLEVEL9K_DIR_BACKGROUND=$POWERLEVEL/" /Users/ruban/dotfiles/.p10k.zsh
