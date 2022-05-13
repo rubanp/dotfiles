@@ -141,6 +141,12 @@ highlight SignColumn guibg=none ctermbg=none
 highlight clear SignColumn
 highlight CursorLine ctermfg=none guibg=none
 
+" Make javascript files syntax highlight as typescript
+augroup SyntaxSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.js set syntax=typescript
+augroup END
+
 " ===========
 " |shortcuts|
 " ===========
