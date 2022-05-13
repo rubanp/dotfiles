@@ -1,9 +1,14 @@
 #!/bin/zsh
 
+# Variables
+# =========
+TYPE=$1
+NAME=$2
+
 # Start new session
 # =================
 echo "Creating tmux session..."
-tmux new-session -d -s $1
+tmux new-session -d -s $NAME
 sleep 0.5
 
 # First window - nvim
@@ -12,12 +17,12 @@ echo "Building window 1 'nvim'..."
 tmux rename-window -t 1 'nvim'
 sleep 0.5
 
-echo "Downloading frontend template into ~/Code/$1..."
-tmux send-keys -t 'nvim' "svn export https://github.com/rubanp/frontend-template.git/trunk ~/Code/$1" C-m
+echo "Downloading frontend template into ~/Code/$NAME..."
+tmux send-keys -t 'nvim' "svn export https://github.com/rubanp/$TYPE-template.git/trunk ~/Code/$NAME" C-m
 sleep 3
 
-echo "Changing directory into ~/Code/$1..."
-tmux send-keys -t 'nvim' "cd ~/Code/$1" C-m
+echo "Changing directory into ~/Code/$NAME..."
+tmux send-keys -t 'nvim' "cd ~/Code/$NAME" C-m
 sleep 0.5
 
 echo "Installing node modules..."
@@ -27,9 +32,9 @@ echo "Still installing node modules..."
 sleep 5
 
 echo "Setting project name..."
-tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$1/g' src/index.html" C-m
+tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$NAME/g' src/index.html" C-m
 sleep 0.25
-tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$1/g' package.json" C-m
+tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$NAME/g' package.json" C-m
 sleep 0.25
 
 echo "Initialising git..."
@@ -61,11 +66,11 @@ sleep 0.25
 # Second Window - ranger
 # ======================
 echo "Building window 2 'ranger'..."
-tmux new-window -t $1:2 -n 'ranger'
+tmux new-window -t $NAME:2 -n 'ranger'
 sleep 0.5
 
-echo "Changing directory into ~/Code/$1..."
-tmux send-keys -t 'ranger' "cd ~/Code/$1" C-m
+echo "Changing directory into ~/Code/$NAME..."
+tmux send-keys -t 'ranger' "cd ~/Code/$NAME" C-m
 sleep 0.5
 
 echo "Initialising ranger"
@@ -79,11 +84,11 @@ sleep 0.25
 # ==================
 
 echo "Building window 3 'git'..."
-tmux new-window -t $1:3 -n 'git'
+tmux new-window -t $NAME:3 -n 'git'
 sleep 0.5
 
-echo "Changing directory into ~/Code/$1..."
-tmux send-keys -t 'git' "cd ~/Code/$1" C-m
+echo "Changing directory into ~/Code/$NAME..."
+tmux send-keys -t 'git' "cd ~/Code/$NAME" C-m
 sleep 0.5
 
 echo "Creating github repository..."
@@ -118,11 +123,11 @@ sleep 0.25
 # # Fourth Window - zsh
 # ===================
 echo "Building window 4 'zsh'..."
-tmux new-window -t $1:4 -n 'zsh'
+tmux new-window -t $NAME:4 -n 'zsh'
 sleep 0.5
 
-echo "Changing directory into ~/Code/$1..."
-tmux send-keys -t 'zsh' "cd ~/Code/$1" C-m
+echo "Changing directory into ~/Code/$NAME..."
+tmux send-keys -t 'zsh' "cd ~/Code/$NAME" C-m
 sleep 0.5
 echo "Window 4 'zsh' created."
 sleep 0.25
@@ -130,11 +135,11 @@ sleep 0.25
 # Fifth Window - server
 # ===================
 echo "Building window 4 'server'..."
-tmux new-window -t $1:5 -n 'server'
+tmux new-window -t $NAME:5 -n 'server'
 sleep 0.5
 
-echo "Changing directory into ~/Code/$1..."
-tmux send-keys -t 'server' "cd ~/Code/$1" C-m
+echo "Changing directory into ~/Code/$NAME..."
+tmux send-keys -t 'server' "cd ~/Code/$NAME" C-m
 sleep 0.5
 echo "Initialising server dev server..."
 tmux send-keys -t 'server' "npm run dev"
@@ -145,6 +150,6 @@ sleep 0.25
 
 # Attach to zsh window
 # ==============================
-echo "Attaching to session $1..."
+echo "Attaching to session $NAME..."
 sleep 1
-tmux attach-session -t $1
+tmux attach-session -t $NAME
