@@ -47,6 +47,7 @@ set shada=!,'100,<50,s10,h
 set foldmethod=manual
 set foldlevel=99
 let g:loaded_perl_provider = 0
+set nomodeline
 
 " Folding
 function! MyFoldText()
@@ -86,7 +87,8 @@ Plug 'tpope/vim-repeat' " https://github.com/tpope/vim-repeat
 Plug 'junegunn/vim-easy-align' " https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " https://github.com/junegunn/fzf
 Plug 'junegunn/fzf.vim' " https://github.com/junegunn/fzf.vim
-Plug 'junegunn/goyo.vim' " https://github.com/junegunn/goyo.vim
+Plug 'junegunn/goyo.vim' " https://github.com/junegunn/goyo
+Plug 'junegunn/limelight.vim' " https://github.com/junegunn/limelight.vim
 Plug 'svermeulen/vim-subversive' " https://github.com/svermeulen/vim-subversive
 Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
 Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
@@ -94,11 +96,11 @@ Plug 'preservim/nerdtree' " https://github.com/preservim/nerdtree
 Plug 'preservim/vim-markdown' " https://github.com/preservim/vim-markdown
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
+Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
 Plug 'jonsmithers/vim-html-template-literals' "https://github.com/jonsmithers/vim-html-template-literals
 Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
 Plug 'unblevable/quick-scope' " https://github.com/unblevable/quick-scope
 Plug 'brooth/far.vim' " https://github.com/brooth/far.vim
-Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
 Plug 'Xuyuanp/nerdtree-git-plugin' " https://github.com/Xuyuanp/nerdtree-git-plugin
 Plug 'PhilRunninger/nerdtree-visual-selection' " https://github.com/PhilRunninger/nerdtree-visual-selection
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
@@ -126,21 +128,11 @@ call plug#end()
 " |theme|
 " =======
 
-let g:airline_theme='papercolor'
-set termguicolors
-highlight Folded guifg=#949494
-
-" PMenu
+colorscheme gruvbox
+let g:airline_theme='base16_gruvbox_dark_medium'
 set background=dark
-colorscheme onehalfextradark
-
-" Make background transparent
-highlight Normal guibg=none
-highlight NonText guibg=none
-highlight LineNr guibg=none
-highlight SignColumn guibg=none ctermbg=none
+set termguicolors
 highlight clear SignColumn
-highlight CursorLine ctermfg=none guibg=none
 
 " Make javascript files syntax highlight as typescript
 augroup SyntaxSettings
@@ -148,17 +140,28 @@ augroup SyntaxSettings
     autocmd BufNewFile,BufRead *.js set syntax=typescript
 augroup END
 
+" Specific Highlight Colours
+hi Folded guifg=#949494
+hi DiffAdd guifg=#282828 guibg=#98971a
+hi DiffDelete guifg=#282828 guibg=#cc241d
+hi DiffChange guifg=#282828 guibg=#458588
+
 " ===========
 " |shortcuts|
 " ===========
 
-" Create boilerplate for custom element
-nnoremap ,e "zp
-nnoremap ,l :%s/CustomElem/
+" Toggle signcolumn
+nnoremap <silent>,s :call ToggleSignColumn()<CR>
 
-" Edit and source init.vim
-nnoremap <Leader>e :tabedit ~/dotfiles/nvim/init.vim<cr>
-nnoremap <Leader>r :source ~/.config/nvim/init.vim<cr>:tabedit<cr>:q<cr>
+function! ToggleSignColumn()
+    if !exists("b:signcolumn_on") || b:signcolumn_on
+        set signcolumn=no
+        let b:signcolumn_on=0
+    else
+        set signcolumn=number
+        let b:signcolumn_on=1
+    endif
+endfunction
 
 " Reload buffer
 nnoremap <Leader>k :e!<cr>
@@ -249,7 +252,14 @@ nnoremap <Leader>u z<Enter>5k5j
 " |plugin-settings|
 " =================
 
-" IndenLine
+" Limelight
+nnoremap <silent>,l :Limelight!!<c-m>
+let g:limelight_conceal_ctermfg = 240
+let g:limelight_conceal_guifg = '#777777'
+
+" IndentLine
+nnoremap <silent>,i :IndentLinesToggle<c-m> :IndentBlanklineToggle<c-m> 
+let g:indentLine_fileTypeExclude = ['txt']
 let g:indentLine_enabled = 1
 let g:indentLine_setColors = 0
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -262,7 +272,6 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
-
 
 " fzf
 " ====
@@ -330,8 +339,8 @@ nnoremap <Leader>w :WinResizerStartResize<cr>
 " =====
 nnoremap <silent> ,g :silent! Goyo<cr>
 
-let g:goyo_height= '80%'
-let g:goyo_width= '80%'
+let g:goyo_height= '70%'
+let g:goyo_width= '50%'
 
 function! s:goyo_leave()
     hi Normal guibg=NONE ctermbg=NONE
@@ -339,6 +348,10 @@ function! s:goyo_leave()
     set relativenumber
     set signcolumn=yes
     let b:signcolumn_on=1
+    hi DiffAdd guifg=#282828 guibg=#98971a
+    hi DiffDelete guifg=#282828 guibg=#cc241d
+    hi DiffChange guifg=#282828 guibg=#458588
+    highlight clear SignColumn
     source ~/Dotfiles/dotfiles/init.vim
 endfunction
 
@@ -350,6 +363,10 @@ function! s:goyo_enter()
     set nonumber
     set signcolumn=no
     let b:signcolumn_on=0
+    hi DiffAdd guifg=#282828 guibg=#98971a
+    hi DiffDelete guifg=#282828 guibg=#cc241d
+    hi DiffChange guifg=#282828 guibg=#458588
+    highlight clear SignColumn
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -499,11 +516,6 @@ let g:user_emmet_leader_key=','
 let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-eslint', 'coc-tsserver', 'coc-snippets', 'coc-prettier', 'coc-sql']
 autocmd FileType css setl iskeyword+=-
 
-hi PMenu guifg=#dcdfe8 guibg=#2f323b
-hi CocWarningFloat guifg=#f19746 guibg=#2f323b
-hi CocErrorFloat guifg=#ea3524 guibg=#2f323b
-hi CocHintFloat guifg=#dcdfe8 guibg=#2f323b
-hi CocInfoFloat guifg=#73aae6 guibg=#2f323b
 autocmd FileType markdown let b:coc_suggest_disable = 1
 
 " ==Diagnostics Navigation==

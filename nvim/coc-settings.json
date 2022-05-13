@@ -4,5 +4,6 @@
   "suggest.noselect": false,
   "coc.preferences.extensionUpdateCheck": "daily",
   "stylelintplus.cssInJs": true,
-  "diagnostic.checkCurrentLine": true
+  "diagnostic.checkCurrentLine": true,
+  "git.enableGutters": true
 }

@@ -1,0 +1,14 @@
+---
+themes:
+  1: "gruvbox"
+  2: "nord"
+gruvbox:
+  iterm: "gruvbox"
+  vim: "gruvbox"
+  airline: "base16_gruvbox_dark_medium"
+  powerlevel: 30
+nord:
+  iterm: "nord"
+  vim: "nord"
+  airline: "base16_nord"
+  powerlevel: 88
