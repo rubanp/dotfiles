@@ -8,6 +8,7 @@ export VISUAL=nvim
 export EDITOR=nvim
 export PATH="$PATH:$HOME/.local/bin"
 export THEME='gruvbox'
+export BACKGROUND='#282828'
 
 # Alias
 # =========================================
@@ -42,7 +43,7 @@ zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;
 
 # Keyboard Shortcuts
 # =========================================
-bindkey -s '^o' 'nvim $(fzf)^M' # Open file in vim through fzf
+bindkey -s '^o' 'openfile^M' # Open file in vim through fzf
 bindkey -s '^g' 'fzm^M' # Go to bookmarked directory through fzf
 bindkey -s '^z' 'source ~/.zshrc^M' # Source .zshrc
 bindkey -s '^k' 'tfz^M' # Attach to tmux session through fzf
