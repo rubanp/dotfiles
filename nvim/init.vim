@@ -51,15 +51,15 @@ set nomodeline
 
 " Folding
 function! MyFoldText()
-    let line = getline(v:foldstart)
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+  let line = getline(v:foldstart)
+  let nucolwidth = &fdc + &number * &numberwidth
+  let windowwidth = winwidth(0) - nucolwidth - 3
+  let foldedlinecount = v:foldend - v:foldstart
+  let onetab = strpart('          ', 0, &tabstop)
+  let line = substitute(line, '\t', onetab, 'g')
+  let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+  let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+  return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
 set foldtext=MyFoldText()
 
@@ -136,15 +136,16 @@ highlight clear SignColumn
 
 " Make javascript files syntax highlight as typescript
 augroup SyntaxSettings
-    autocmd!
-    autocmd BufNewFile,BufRead *.js set syntax=typescript
+  autocmd!
+  autocmd BufNewFile,BufRead *.js set syntax=typescript
 augroup END
 
 " Specific Highlight Colours
-hi Folded guifg=#949494
+hi Folded guibg=#282828 guifg=#949494 
 hi DiffAdd guifg=#282828 guibg=#98971a
 hi DiffDelete guifg=#282828 guibg=#cc241d
 hi DiffChange guifg=#282828 guibg=#458588
+hi FoldColumn guibg=#282828
 
 " ===========
 " |shortcuts|
@@ -154,13 +155,13 @@ hi DiffChange guifg=#282828 guibg=#458588
 nnoremap <silent>,s :call ToggleSignColumn()<CR>
 
 function! ToggleSignColumn()
-    if !exists("b:signcolumn_on") || b:signcolumn_on
-        set signcolumn=no
-        let b:signcolumn_on=0
-    else
-        set signcolumn=number
-        let b:signcolumn_on=1
-    endif
+  if !exists("b:signcolumn_on") || b:signcolumn_on
+    set signcolumn=no
+    let b:signcolumn_on=0
+  else
+    set signcolumn=number
+    let b:signcolumn_on=1
+  endif
 endfunction
 
 " Reload buffer
@@ -200,11 +201,11 @@ nnoremap gm m
 " Toggle viewing fold column
 nnoremap <silent>† :call FoldColumnToggle()<cr>
 function! FoldColumnToggle()
-    if &foldcolumn
-        setlocal foldcolumn=0
-    else
-        setlocal foldcolumn=4
-    endif
+  if &foldcolumn
+    setlocal foldcolumn=0
+  else
+    setlocal foldcolumn=2
+  endif
 endfunction
 
 " Turn off search highlighting
@@ -228,15 +229,15 @@ xnoremap ,rc :%s///gc<Left><Left><Left>
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+      \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+      \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+      \gVzv:call setreg('"', old_reg, old_regtype)<CR>
 vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+      \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+      \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+      \gVzv:call setreg('"', old_reg, old_regtype)<CR>
 
 " Yank into system clipboard
 nnoremap <Leader>y "*y
@@ -277,38 +278,38 @@ nmap ga <Plug>(EasyAlign)
 " ====
 
 let g:fzf_colors =
-    \ { 'fg':      ['fg', 'Normal'],
-    \ 'bg':      ['bg', 'Normal'],
-    \ 'hl':      ['fg', 'Comment'],
-    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-    \ 'hl+':     ['fg', 'Statement'],
-    \ 'info':    ['fg', 'PreProc'],
-    \ 'border':  ['fg', 'Ignore'],
-    \ 'prompt':  ['fg', 'Conditional'],
-    \ 'pointer': ['fg', 'Exception'],
-    \ 'marker':  ['fg', 'Keyword'],
-    \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Comment'] }
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.9, 'relative': v:true } }
 
 function! s:list_buffers()
-    redir => list
-    silent ls
-    redir END
-    return split(list, "\n")
+  redir => list
+  silent ls
+  redir END
+  return split(list, "\n")
 endfunction
 
 function! s:delete_buffers(lines)
-    execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+  execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
 endfunction
 
 command! BD call fzf#run(fzf#wrap({
-            \ 'source': s:list_buffers(),
-            \ 'sink*': { lines -> s:delete_buffers(lines) },
-            \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
-            \ }))
+      \ 'source': s:list_buffers(),
+      \ 'sink*': { lines -> s:delete_buffers(lines) },
+      \ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+      \ }))
 
 nnoremap <Leader>p :Buffers<cr>
 nnoremap <Leader>B :BD<cr>
@@ -343,30 +344,42 @@ let g:goyo_height= '70%'
 let g:goyo_width= '50%'
 
 function! s:goyo_leave()
-    hi Normal guibg=NONE ctermbg=NONE
-    set number
-    set relativenumber
-    set signcolumn=yes
-    let b:signcolumn_on=1
-    hi DiffAdd guifg=#282828 guibg=#98971a
-    hi DiffDelete guifg=#282828 guibg=#cc241d
-    hi DiffChange guifg=#282828 guibg=#458588
-    highlight clear SignColumn
-    source ~/Dotfiles/dotfiles/init.vim
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    " silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  hi Normal guibg=#282828NONE ctermbg=NONE
+  set number
+  set relativenumber
+  set signcolumn=yes
+  let b:signcolumn_on=1
+  hi Folded guibg=#282828 guifg=#949494 
+  hi DiffAdd guifg=#282828 guibg=#98971a
+  hi DiffDelete guifg=#282828 guibg=#cc241d
+  hi DiffChange guifg=#282828 guibg=#458588
+  hi FoldColumn guibg=#282828
+  highlight clear SignColumn
+  source ~/Dotfiles/dotfiles/init.vim
 endfunction
 
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 function! s:goyo_enter()
-    hi Normal guibg=NONE ctermbg=NONE
-    set norelativenumber
-    set nonumber
-    set signcolumn=no
-    let b:signcolumn_on=0
-    hi DiffAdd guifg=#282828 guibg=#98971a
-    hi DiffDelete guifg=#282828 guibg=#cc241d
-    hi DiffChange guifg=#282828 guibg=#458588
-    highlight clear SignColumn
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    " silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  hi Normal guibg=#282828NONE ctermbg=NONE
+  set norelativenumber
+  set nonumber
+  set signcolumn=no
+  let b:signcolumn_on=0
+  hi Folded guibg=#282828 guifg=#949494 
+  hi DiffAdd guifg=#282828 guibg=#98971a
+  hi DiffDelete guifg=#282828 guibg=#cc241d
+  hi DiffChange guifg=#282828 guibg=#458588
+  hi FoldColumn guibg=#282828
+  highlight clear SignColumn
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -504,7 +517,7 @@ let g:airline#extensions#tabline#show_tab_nr = 0
 " Dev Icons
 " =========
 if exists('g:loaded_webdevicons')
-    call webdevicons#refresh()
+  call webdevicons#refresh()
 endif
 
 " Emmet
@@ -531,13 +544,13 @@ nmap <silent> gr <Plug>(coc-references)
 " ==Show Documentation==
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    elseif (coc#rpc#ready())
-        call CocActionAsync('doHover')
-    else
-        execute '!' . &keywordprg . " " . expand('<cword>')
-    endif
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
 endfunction
 
 " ==Symbol renaming==
