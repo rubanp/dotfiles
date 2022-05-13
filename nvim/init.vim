@@ -90,6 +90,8 @@ Plug 'junegunn/goyo.vim' " https://github.com/junegunn/goyo.vim
 Plug 'svermeulen/vim-subversive' " https://github.com/svermeulen/vim-subversive
 Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
 Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
+Plug 'preservim/nerdtree' " https://github.com/preservim/nerdtree
+Plug 'preservim/vim-markdown' " https://github.com/preservim/vim-markdown
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
 Plug 'jonsmithers/vim-html-template-literals' "https://github.com/jonsmithers/vim-html-template-literals
@@ -97,7 +99,6 @@ Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
 Plug 'unblevable/quick-scope' " https://github.com/unblevable/quick-scope
 Plug 'brooth/far.vim' " https://github.com/brooth/far.vim
 Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
-Plug 'preservim/nerdtree' " https://github.com/preservim/nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin' " https://github.com/Xuyuanp/nerdtree-git-plugin
 Plug 'PhilRunninger/nerdtree-visual-selection' " https://github.com/PhilRunninger/nerdtree-visual-selection
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
