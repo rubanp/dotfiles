@@ -131,7 +131,7 @@ highlight Folded guifg=#949494
 
 " PMenu
 set background=dark
-colorscheme onehalfdark
+colorscheme onehalfextradark
 
 " Make background transparent
 highlight Normal guibg=none
