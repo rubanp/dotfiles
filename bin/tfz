@@ -1,3 +1,3 @@
 #!/bin/zsh
-sesh=$(tmux ls | fzf | sed 's/:.*//')
-tmux attach -t "$sesh"
+SESH=$(tmux ls | fzf | sed 's/:.*//')
+[[ ! -z $SESH ]] && tmux attach -t "$SESH" || exit 22
