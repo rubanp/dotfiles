@@ -7,8 +7,10 @@ gruvbox:
   vim: "gruvbox"
   airline: "base16_gruvbox_dark_medium"
   powerlevel: 30
+  background: "#282828"
 nord:
   iterm: "nord"
   vim: "nord"
   airline: "base16_nord"
   powerlevel: 88
+  background: "#2e333f"
