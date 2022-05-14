@@ -94,6 +94,7 @@ Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
 Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
 Plug 'preservim/nerdtree' " https://github.com/preservim/nerdtree
 Plug 'preservim/vim-markdown' " https://github.com/preservim/vim-markdown
+Plug 'preservim/tagbar' " https://github.com/preservim/tagbar
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
 Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
@@ -123,6 +124,8 @@ Plug 'lukas-reineke/indent-blankline.nvim' " https://github.com/lukas-reineke/in
 Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
 Plug 'jbyuki/venn.nvim' " https://github.com/jbyuki/venn.nvim
 Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mode
+Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
+Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
 
 call plug#end()
 
@@ -161,10 +164,10 @@ nnoremap <Right> :silent bn<cr> :redraw!<cr>
 nnoremap <Left> :silent bp<cr> :redraw!<cr>
 
 " Create ascii font
-vnoremap <leader>1  d:r!figlet <C-r>1<c-m>
+vnoremap <leader>1  d:r!figlet <C-r>1<cr>
 
 " Toggle signcolumn
-nnoremap <silent>,s :call ToggleSignColumn()<CR>
+nnoremap <silent>,s :call ToggleSignColumn()<cr>
 
 function! ToggleSignColumn()
   if !exists("b:signcolumn_on") || b:signcolumn_on
@@ -224,11 +227,11 @@ endfunction
 nnoremap <silent> <esc><esc> :nohlsearch<cr>
 
 " Add new line below
-nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
-nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<cr>
+nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<cr>
 
 "Remove all trailing whitespace
-nnoremap <silent><Leader>0 :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <silent><Leader>0 :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><cr>
 
 " Toggle Conceal Level
 nnoremap coe :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>
@@ -241,15 +244,15 @@ xnoremap ,rc :%s///gc<Left><Left><Left>
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
-      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-      \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
-      \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-      \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
+      \gvy/<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
+      \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
+      \gVzv:call setreg('"', old_reg, old_regtype)<cr>
 vnoremap <silent> # :<C-U>
-      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-      \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
-      \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-      \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
+      \gvy?<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
+      \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
+      \gVzv:call setreg('"', old_reg, old_regtype)<cr>
 
 " Yank into system clipboard
 nnoremap <Leader>y "*y
@@ -265,20 +268,82 @@ nnoremap <Leader>u z<Enter>5k5j
 " |plugin-settings|
 " =================
 
+" Gutentags
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['package.json', '.git']
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_empty_buffer = 0
+let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
+let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
+
+" Tagbar
+nnoremap ,5 :TagbarToggle<cr>
+
 " Table Mode
 let g:table_mode_corner='|'
 
 " Venn
-nnoremap <silent><leader>2 :set ve=all<c-m>
-vnoremap <silent> <C-l> :VBox<c-m>
+nnoremap <silent><leader>2 :set ve=all<cr>
+vnoremap <silent> <C-l> :VBox<cr>
 
 " Limelight
-nnoremap <silent>,l :Limelight!!<c-m>
+nnoremap <silent>,l :Limelight!!<cr>
 let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = '#777777'
 
 " IndentLine
-nnoremap <silent>,i :IndentLinesToggle<c-m> :IndentBlanklineToggle<c-m> 
+nnoremap <silent>,i :IndentLinesToggle<cr> :IndentBlanklineToggle<cr> 
 let g:indentLine_fileTypeExclude = ['txt, md']
 let g:indent_blankline_filetype_exclude = ['txt, md']
 let g:indentLine_enabled = 0
@@ -289,7 +354,6 @@ let g:indentLine_setConceal = 0
 augroup disable_indentLine
   autocmd!
   autocmd BufWinEnter *.* silent! IndentBlanklineDisable
-  autocmd BufWinEnter *.* silent! ve=""
 augroup END
 
 " EasyAlign
@@ -485,8 +549,8 @@ nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 " Nerd Tree
 " =========
 let NERDTreeShowBookmarks=1
-nnoremap ,b :Bookmark<CR>
-nnoremap <silent><c-k> :NERDTreeToggle<CR>
+nnoremap ,b :Bookmark<cr>
+nnoremap <silent><c-k> :NERDTreeToggle<cr>
 let g:NERDTreeGitStatusShowClean = 1
 let NERDTreeIgnore = ['node_modules']
 
@@ -568,7 +632,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " ==Show Documentation==
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<cr>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
