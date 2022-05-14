@@ -1,7 +1,10 @@
 #!/bin/sh
 
+# Get home directory
+HOME=`echo $HOME`
+
 # Take user input for theme
-THEME=`yq ".themes" /Users/ruban/dotfiles/themes.yaml | fzf | egrep -o "[a-z]*"`
+THEME=`yq ".themes" $HOME/dotfiles/themes.yaml | fzf | egrep -o "[a-z]*"`
 
 # Exit if nothing is chosen
 if [ -z "$THEME" ]
@@ -13,30 +16,30 @@ fi
 CURRENT_BACKGROUND=`echo $BACKGROUND`
 
 # Set theme environment variable
-sed -i "" -e "s/export THEME=.*/export THEME='$THEME'/" /Users/ruban/dotfiles/.zshrc
+sed -i "" -e "s/export THEME=.*/export THEME='$THEME'/" $HOME/dotfiles/.zshrc
 
 # Parse theme into options
-NEW_BACKGROUND=`yq ".$THEME.background" /Users/ruban/dotfiles/themes.yaml`
-ITERM=`yq ".$THEME.iterm" /Users/ruban/dotfiles/themes.yaml`
-VIM=`yq ".$THEME.vim" /Users/ruban/dotfiles/themes.yaml`
-AIRLINE=`yq ".$THEME.airline" /Users/ruban/dotfiles/themes.yaml`
-POWERLEVEL=`yq ".$THEME.powerlevel" /Users/ruban/dotfiles/themes.yaml`
+NEW_BACKGROUND=`yq ".$THEME.background" $HOME/dotfiles/themes.yaml`
+ITERM=`yq ".$THEME.iterm" $HOME/dotfiles/themes.yaml`
+VIM=`yq ".$THEME.vim" $HOME/dotfiles/themes.yaml`
+AIRLINE=`yq ".$THEME.airline" $HOME/dotfiles/themes.yaml`
+POWERLEVEL=`yq ".$THEME.powerlevel" $HOME/dotfiles/themes.yaml`
 
 # Set iterm profile
 echo "\033]50;SetProfile=$ITERM\a"
 
 # Set vim theme
-sed -i "" -e "s/colorscheme.*/colorscheme $VIM/" /Users/ruban/dotfiles/nvim/init.vim
+sed -i "" -e "s/colorscheme.*/colorscheme $VIM/" $HOME/dotfiles/nvim/init.vim
 
 ## Set vim sign column colors
-sed -i "" -e "s/guibg=$CURRENT_BACKGROUND/guibg=$NEW_BACKGROUND/" /Users/ruban/dotfiles/nvim/init.vim
-sed -i "" -e "s/guifg=$CURRENT_BACKGROUND/guifg=$NEW_BACKGROUND/" /Users/ruban/dotfiles/nvim/init.vim
+sed -i "" -e "s/guibg=$CURRENT_BACKGROUND/guibg=$NEW_BACKGROUND/" $HOME/dotfiles/nvim/init.vim
+sed -i "" -e "s/guifg=$CURRENT_BACKGROUND/guifg=$NEW_BACKGROUND/" $HOME/dotfiles/nvim/init.vim
 
 # Set airline theme
-sed -i "" -e "s/let[ ]g:airline_theme=.*/let g:airline_theme='$AIRLINE'/" /Users/ruban/dotfiles/nvim/init.vim
+sed -i "" -e "s/let[ ]g:airline_theme=.*/let g:airline_theme='$AIRLINE'/" $HOME/dotfiles/nvim/init.vim
 
 # Set p10k dir color
-sed -i "" -e "s/POWERLEVEL9K_DIR_BACKGROUND=.*/POWERLEVEL9K_DIR_BACKGROUND=$POWERLEVEL/" /Users/ruban/dotfiles/.p10k.zsh
+sed -i "" -e "s/POWERLEVEL9K_DIR_BACKGROUND=.*/POWERLEVEL9K_DIR_BACKGROUND=$POWERLEVEL/" $HOME/dotfiles/.p10k.zsh
 
 # Set background color environment variable
-sed -i "" -e "s/export BACKGROUND=.*/export BACKGROUND='$NEW_BACKGROUND'/" /Users/ruban/dotfiles/.zshrc
+sed -i "" -e "s/export BACKGROUND=.*/export BACKGROUND='$NEW_BACKGROUND'/" $HOME/dotfiles/.zshrc
