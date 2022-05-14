@@ -6,7 +6,7 @@ export LC_ALL=en_GB.UTF-8
 export LANG=en_GB.UTF-8
 export VISUAL=nvim
 export EDITOR=nvim
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/dotfiles/bin"
 export THEME='gruvbox'
 export BACKGROUND='#282828'
 
