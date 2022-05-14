@@ -121,6 +121,8 @@ Plug 'hail2u/vim-css3-syntax' " https://github.com/hail2u/vim-css3-syntax
 Plug 'andymass/vim-matchup' " https://github.com/andymass/vim-matchup
 Plug 'lukas-reineke/indent-blankline.nvim' " https://github.com/lukas-reineke/indent-blankline.nvim
 Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
+Plug 'jbyuki/venn.nvim' " https://github.com/jbyuki/venn.nvim
+Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mode
 
 call plug#end()
 
@@ -151,20 +153,15 @@ hi FoldColumn guibg=#282828
 " |shortcuts|
 " ===========
 
-" Vim Presentation Mode
-autocmd BufNewFile,BufRead *.vpm call SetVimPresentationMode()
-function SetVimPresentationMode()
-  nnoremap <buffer> <Right> :n<cr>
-  nnoremap <buffer> <Left> :N<cr>
-  if !exists('#goyo')
-    Goyo
-  endif
-endfunction
+" Quickly paste in insert mode
+inoremap <C-l> <C-r>0
 
-augroup SyntaxSettings
-  autocmd!
-  autocmd BufNewFile,BufRead *.vpm set syntax=markdown
-augroup END
+" Quickly Navigate Buffers
+nnoremap <Right> :silent bn<cr> :redraw!<cr>
+nnoremap <Left> :silent bp<cr> :redraw!<cr>
+
+" Create ascii font
+vnoremap <leader>1  d:r!figlet <C-r>1<c-m>
 
 " Toggle signcolumn
 nnoremap <silent>,s :call ToggleSignColumn()<CR>
@@ -268,6 +265,13 @@ nnoremap <Leader>u z<Enter>5k5j
 " |plugin-settings|
 " =================
 
+" Table Mode
+let g:table_mode_corner='|'
+
+" Venn
+nnoremap <silent><leader>2 :set ve=all<c-m>
+vnoremap <silent> <C-l> :VBox<c-m>
+
 " Limelight
 nnoremap <silent>,l :Limelight!!<c-m>
 let g:limelight_conceal_ctermfg = 240
@@ -275,11 +279,18 @@ let g:limelight_conceal_guifg = '#777777'
 
 " IndentLine
 nnoremap <silent>,i :IndentLinesToggle<c-m> :IndentBlanklineToggle<c-m> 
-let g:indentLine_fileTypeExclude = ['txt']
-let g:indentLine_enabled = 1
+let g:indentLine_fileTypeExclude = ['txt, md']
+let g:indent_blankline_filetype_exclude = ['txt, md']
+let g:indentLine_enabled = 0
 let g:indentLine_setColors = 0
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_setConceal = 0
+
+augroup disable_indentLine
+  autocmd!
+  autocmd BufWinEnter *.* silent! IndentBlanklineDisable
+  autocmd BufWinEnter *.* silent! ve=""
+augroup END
 
 " EasyAlign
 " =========
@@ -339,7 +350,7 @@ nnoremap <Leader>G :GFiles?<cr>
 nnoremap <Leader>h :History:<cr>
 nnoremap <Leader>H :History<cr>
 nnoremap <Leader>/ :History/<cr>
-nnoremap <Leader>t :BTags<cr>
+nnoremap <Leader>b :BTags<cr>
 nnoremap <Leader>T :Tags<cr>
 nnoremap <Leader>c :BCommits<cr>
 nnoremap <Leader>C :Commits<cr>

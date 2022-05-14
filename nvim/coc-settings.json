@@ -1,6 +1,6 @@
 {
   "eslint.autoFixOnSave": true,
-  "coc.preferences.formatOnSaveFiletypes": ["*"],
+  "coc.preferences.formatOnSaveFiletypes": ["html, css, js, ts"],
   "suggest.noselect": false,
   "coc.preferences.extensionUpdateCheck": "daily",
   "stylelintplus.cssInJs": true,

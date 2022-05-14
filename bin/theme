@@ -3,6 +3,7 @@
 # Take user input for theme
 THEME=`yq ".themes" /Users/ruban/dotfiles/themes.yaml | fzf | egrep -o "[a-z]*"`
 
+# Exit if nothing is chosen
 if [ -z "$THEME" ]
 then
   exit 22
@@ -12,7 +13,7 @@ fi
 CURRENT_BACKGROUND=`echo $BACKGROUND`
 
 # Set theme environment variable
-sed -i -e "s/export THEME=.*/export THEME='$THEME'/" /Users/ruban/dotfiles/.zshrc
+sed -i "" -e "s/export THEME=.*/export THEME='$THEME'/" /Users/ruban/dotfiles/.zshrc
 
 # Parse theme into options
 NEW_BACKGROUND=`yq ".$THEME.background" /Users/ruban/dotfiles/themes.yaml`
