@@ -107,51 +107,6 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-# Centre Prompt
-# =========================================
-
-# load terminfo modules to make the associative array $terminfo available
-zmodload zsh/terminfo 
-
-# save current prompt to parameter PS1o
-PS1o="$PS1"
-
-# calculate how many lines one half of the terminal's height has
-halfpage=$((LINES/2))
-
-# construct parameter to go down/up $halfpage lines via termcap
-halfpage_down=""
-for i in {1..$halfpage}; do
-  halfpage_down="$halfpage_down$terminfo[cud1]"
-done
-
-halfpage_up=""
-for i in {1..$halfpage}; do
-  halfpage_up="$halfpage_up$terminfo[cuu1]"
-done
-
-# define functions
-function prompt_middle() {
-  # print $halfpage_down
-  PS1="%{${halfpage_down}${halfpage_up}%}$PS1o"
-}
-
-function prompt_restore() {
-  PS1="$PS1o"
-}
-
-magic-enter () {
-    if [[ -z $BUFFER ]]
-    then
-            print ${halfpage_down}${halfpage_up}$terminfo[cuu1]
-            zle reset-prompt
-    else
-            zle accept-line
-    fi
-}
-zle -N magic-enter
-bindkey "^M" magic-enter
-
 # Node Version Manager
 # =========================================
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
