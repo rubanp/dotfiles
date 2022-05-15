@@ -126,6 +126,7 @@ Plug 'jbyuki/venn.nvim' " https://github.com/jbyuki/venn.nvim
 Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mode
 Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
 Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
+Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
 
 call plug#end()
 
