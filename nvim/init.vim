@@ -157,6 +157,10 @@ hi FoldColumn guibg=#282828
 " |shortcuts|
 " ===========
 
+" Move between tabs
+nnoremap <tab> :tabprevious<cr>
+nnoremap <s-tab> :tabnext<cr>
+
 " Quickly paste in insert mode
 inoremap <C-l> <C-r>0
 
@@ -206,10 +210,6 @@ inoremap <silent>˚ <esc>:m .+1<cr>==gi
 " Fast Replacement
 nnoremap cn *``cgn
 nnoremap cN *``cgN
-
-" Faster split movement
-nnoremap <C-H> <C-W>h
-nnoremap <C-L> <C-W>l
 
 " Set marks with 'gm' instead of 'm'
 nnoremap gm m
@@ -508,8 +508,10 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " Ultisnips
 " =========
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-g>"
-let g:UltiSnipsJumpBackwardTrigger="<c-a>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+let g:UltiSnipsSnippetsDir="~/.config/nvim/snips"
+let g:UltiSnipsSnippetDirectories=['snips']
 
 " Far.vim
 " =======
@@ -526,8 +528,6 @@ nnoremap M D
 " Vim Yoink
 " =========
 nnoremap <leader>Y :Yanks<cr>
-nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-nmap <c-p> <plug>(YoinkPostPasteSwapForward)
 nmap p <plug>(YoinkPaste_p)
 nmap P <plug>(YoinkPaste_P)
 nmap y <plug>(YoinkYankPreserveCursorPosition)
