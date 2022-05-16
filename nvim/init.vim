@@ -344,18 +344,23 @@ let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = '#777777'
 
 " IndentLine
-nnoremap <silent>,i :IndentLinesToggle<cr> :IndentBlanklineToggle<cr> 
-let g:indentLine_fileTypeExclude = ['txt, md']
-let g:indent_blankline_filetype_exclude = ['txt, md']
-let g:indentLine_enabled = 0
-let g:indentLine_setColors = 0
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_setConceal = 0
+function! ToggleIndents()
+  if !exists("b:indents_on") || b:indents_on
+    :IndentLinesDisable
+    :IndentBlanklineDisable
+    let b:indents_on=0
+  else
+    :IndentLinesEnable
+    :IndentBlanklineEnable
+    let b:indents_on=1
+  endif
+endfunction
 
-augroup disable_indentLine
-  autocmd!
-  autocmd BufWinEnter *.* silent! IndentBlanklineDisable
-augroup END
+nnoremap <silent>,i :call ToggleIndents()<cr>
+
+let g:indentLine_enabled = 0
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_showFirstIndentLevel = 0
 
 " EasyAlign
 " =========
