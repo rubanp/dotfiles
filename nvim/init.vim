@@ -102,8 +102,6 @@ Plug 'jonsmithers/vim-html-template-literals' "https://github.com/jonsmithers/vi
 Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
 Plug 'unblevable/quick-scope' " https://github.com/unblevable/quick-scope
 Plug 'brooth/far.vim' " https://github.com/brooth/far.vim
-Plug 'Xuyuanp/nerdtree-git-plugin' " https://github.com/Xuyuanp/nerdtree-git-plugin
-Plug 'PhilRunninger/nerdtree-visual-selection' " https://github.com/PhilRunninger/nerdtree-visual-selection
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
 Plug 'SirVer/ultisnips' " https://github.com/SirVer/ultisnips
 Plug 'vim-scripts/loremipsum' " https://github.com/vim-scripts/loremipsum
