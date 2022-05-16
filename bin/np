@@ -1,18 +1,21 @@
 #!/bin/zsh
 
+# To Do
+# =========
+# 1. Provide another optional argument for creating a fullstack project instead 
+# of frontend
+# 2. Create exit clauses for error cases
+# -- tmux window already exists
+# -- 
+
+
 # Variables
 # =========
-TYPE=$1
-NAME=$2
-
-if [ -z "$TYPE" ]
-then
-  echo "please specify the type of project\neither 'frontend' or 'fullstack'"
-  exit 22
-fi
+NAME=$1
 
 if [ -z "$NAME" ]
 then
+  echo "pls specify a name for the project"
   exit 22
 fi
 
@@ -29,7 +32,7 @@ tmux rename-window -t 1 'nvim'
 sleep 0.5
 
 echo "Downloading frontend template into ~/Code/$NAME..."
-tmux send-keys -t 'nvim' "svn export https://github.com/rubanp/$TYPE-template.git/trunk ~/Code/$NAME" C-m
+tmux send-keys -t 'nvim' "svn export https://github.com/rubanp/frontend-template.git/trunk ~/Code/$NAME" C-m
 sleep 3
 
 echo "Changing directory into ~/Code/$NAME..."
@@ -43,9 +46,9 @@ echo "Still installing node modules..."
 sleep 5
 
 echo "Setting project name..."
-tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$NAME/g' src/index.html" C-m
+tmux send-keys -t 'nvim' "sed -i '' 's/project-name/$NAME/g' src/index.html" C-m
 sleep 0.25
-tmux send-keys -t 'zsh' "sed -i '' 's/project-name/$NAME/g' package.json" C-m
+tmux send-keys -t 'nvim' "sed -i '' 's/project-name/$NAME/g' package.json" C-m
 sleep 0.25
 
 echo "Initialising git..."
@@ -58,6 +61,8 @@ sleep 1
 tmux send-keys -t 'nvim' 'git add .npmrc' C-m
 sleep 1
 tmux send-keys -t 'nvim' 'git add .prettierignore .prettierrc.yaml' C-m
+sleep 1
+tmux send-keys -t 'nvim' 'git add .storybook .babelrc' C-m
 sleep 1
 tmux send-keys -t 'nvim' 'git add *' C-m
 sleep 1
@@ -144,7 +149,7 @@ echo "Window 4 'zsh' created."
 sleep 0.25
 
 # Fifth Window - server
-# ===================
+# =====================
 echo "Building window 4 'server'..."
 tmux new-window -t $NAME:5 -n 'server'
 sleep 0.5
