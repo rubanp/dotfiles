@@ -6,8 +6,6 @@
 # of frontend
 # 2. Create exit clauses for error cases
 # -- tmux window already exists
-# -- 
-
 
 # Variables
 # =========
@@ -148,10 +146,25 @@ sleep 0.5
 echo "Window 4 'zsh' created."
 sleep 0.25
 
-# Fifth Window - server
+# Fifth Window - tests
+echo "Building window 5 'tests'..."
+tmux new-window -t $NAME:5 -n 'tests'
+sleep 0.5
+
+echo "Changing directory into ~/Code/$NAME..."
+tmux send-keys -t 'tests' "cd ~/Code/$NAME" C-m
+sleep 0.5
+echo "Initialising test script..."
+tmux send-keys -t 'tests' "npm run test"
+sleep 1
+
+echo "Window 5 'tests' created."
+sleep 0.25
+
+# Sixth Window - server
 # =====================
-echo "Building window 4 'server'..."
-tmux new-window -t $NAME:5 -n 'server'
+echo "Building window 6 'server'..."
+tmux new-window -t $NAME:6 -n 'server'
 sleep 0.5
 
 echo "Changing directory into ~/Code/$NAME..."
@@ -161,11 +174,11 @@ echo "Initialising server dev server..."
 tmux send-keys -t 'server' "npm run dev"
 sleep 1
 
-echo "Window 5 'server' created."
+echo "Window 6 'server' created."
 sleep 0.25
 
 # Attach to zsh window
 # ==============================
 echo "Attaching to session $NAME..."
 sleep 1
-tmux attach-session -t $NAME
+tmux attach-session -t $NAME:1
