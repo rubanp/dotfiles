@@ -92,7 +92,6 @@ Plug 'junegunn/limelight.vim' " https://github.com/junegunn/limelight.vim
 Plug 'svermeulen/vim-subversive' " https://github.com/svermeulen/vim-subversive
 Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
 Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
-Plug 'preservim/nerdtree' " https://github.com/preservim/nerdtree
 Plug 'preservim/vim-markdown' " https://github.com/preservim/vim-markdown
 Plug 'preservim/tagbar' " https://github.com/preservim/tagbar
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
@@ -125,6 +124,7 @@ Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mod
 Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
 Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
 Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
+Plug 'psliwka/vim-smoothie' " https://github.com/psliwka/vim-smoothie
 
 call plug#end()
 
@@ -145,11 +145,17 @@ augroup SyntaxSettings
 augroup END
 
 " Specific Highlight Colours
-hi Folded guibg=#282828 guifg=#949494 
+hi Folded guibg=#282828 guifg=#949494
 hi DiffAdd guifg=#282828 guibg=#98971a
 hi DiffDelete guifg=#282828 guibg=#cc241d
 hi DiffChange guifg=#282828 guibg=#458588
 hi FoldColumn guibg=#282828
+hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#949494
+hi SignColumn guibg=#282828
+hi CocErrorSign guibg=#282828 guifg=#cc241d
+hi CocWarningSign guibg=#282828 guifg=#fabd2f
+hi CocInfoSign guibg=#282828 guifg=#98971a
+hi CocHintSign guibg=#282828 guifg=#458588
 
 " ===========
 " |shortcuts|
@@ -159,15 +165,46 @@ hi FoldColumn guibg=#282828
 nnoremap <tab> :tabprevious<cr>
 nnoremap <s-tab> :tabnext<cr>
 
-" Quickly paste in insert mode
-inoremap <C-l> <C-r>0
+" Move between splits
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
 
-" Quickly Navigate Buffers
+" Move between buffers
 nnoremap <Right> :silent bn<cr> :redraw!<cr>
 nnoremap <Left> :silent bp<cr> :redraw!<cr>
 
-" Create ascii font
-vnoremap <leader>1  d:r!figlet <C-r>1<cr>
+" Quickly paste in insert mode
+inoremap <C-l> <C-r>0
+
+" Replace visually selected text
+vnoremap ,r y:%s/<c-r>0//gc<Left><Left><Left>
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
+      \gvy/<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
+      \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
+      \gVzv:call setreg('"', old_reg, old_regtype)<cr>
+vnoremap <silent> # :<C-U>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
+      \gvy?<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
+      \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
+      \gVzv:call setreg('"', old_reg, old_regtype)<cr>
+
+" Turn off search highlighting
+nnoremap <silent> <esc><esc> :nohlsearch<cr>
+
+" Toggle fold column
+nnoremap <silent>† :call FoldColumnToggle()<cr>
+function! FoldColumnToggle()
+  if &foldcolumn
+    setlocal foldcolumn=0
+  else
+    setlocal foldcolumn=2
+  endif
+endfunction
 
 " Toggle signcolumn
 nnoremap <silent>,s :call ToggleSignColumn()<cr>
@@ -189,6 +226,7 @@ nnoremap <Leader>k :e!<cr>
 nnoremap j gj
 nnoremap k gk
 nnoremap 0 g0
+nnoremap _ g_
 nnoremap $ g$
 nnoremap n nzzzv
 nnoremap N Nzzzv
@@ -212,19 +250,6 @@ nnoremap cN *``cgN
 " Set marks with 'gm' instead of 'm'
 nnoremap gm m
 
-" Toggle viewing fold column
-nnoremap <silent>† :call FoldColumnToggle()<cr>
-function! FoldColumnToggle()
-  if &foldcolumn
-    setlocal foldcolumn=0
-  else
-    setlocal foldcolumn=2
-  endif
-endfunction
-
-" Turn off search highlighting
-nnoremap <silent> <esc><esc> :nohlsearch<cr>
-
 " Add new line below
 nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<cr>
 nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<cr>
@@ -234,24 +259,6 @@ nnoremap <silent><Leader>0 :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><cr>
 
 " Toggle Conceal Level
 nnoremap coe :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>
-
-" Replace
-nnoremap ,r :%s///g<Left><Left>
-nnoremap ,rc :%s///gc<Left><Left><Left>
-xnoremap ,r :%s///g<Left><Left>
-xnoremap ,rc :%s///gc<Left><Left><Left>
-
-" Search for selected text, forwards or backwards.
-vnoremap <silent> * :<C-U>
-      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
-      \gvy/<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
-      \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
-      \gVzv:call setreg('"', old_reg, old_regtype)<cr>
-vnoremap <silent> # :<C-U>
-      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
-      \gvy?<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
-      \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
-      \gVzv:call setreg('"', old_reg, old_regtype)<cr>
 
 " Yank into system clipboard
 nnoremap <Leader>y "*y
@@ -448,7 +455,7 @@ function! s:goyo_leave()
   set relativenumber
   set signcolumn=yes
   let b:signcolumn_on=1
-  hi Folded guibg=#282828 guifg=#949494 
+  hi Folded guibg=#282828 guifg=#949494
   hi DiffAdd guifg=#282828 guibg=#98971a
   hi DiffDelete guifg=#282828 guibg=#cc241d
   hi DiffChange guifg=#282828 guibg=#458588
@@ -468,7 +475,7 @@ function! s:goyo_enter()
   set nonumber
   set signcolumn=no
   let b:signcolumn_on=0
-  hi Folded guibg=#282828 guifg=#949494 
+  hi Folded guibg=#282828 guifg=#949494
   hi DiffAdd guifg=#282828 guibg=#98971a
   hi DiffDelete guifg=#282828 guibg=#cc241d
   hi DiffChange guifg=#282828 guibg=#458588
@@ -550,41 +557,6 @@ nmap <leader>s <plug>(SubversiveSubstituteRange)
 xmap <leader>s <plug>(SubversiveSubstituteRange)
 nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 
-" Nerd Tree
-" =========
-let NERDTreeShowBookmarks=1
-nnoremap ,b :Bookmark<cr>
-nnoremap <silent><c-k> :NERDTreeToggle<cr>
-let g:NERDTreeGitStatusShowClean = 1
-let NERDTreeIgnore = ['node_modules']
-
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:darkBlue = "44788E"
-let s:purple = "834F79"
-let s:lightPurple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['css'] = s:salmon " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['html'] = s:blue " sets the color of css files to blue
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['js'] = s:green " sets the color of css files to blue
-let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
-
 " Vim Rooter
 " ==========
 let g:rooter_patterns = ['.git']
@@ -626,6 +598,7 @@ autocmd FileType css setl iskeyword+=-
 autocmd FileType markdown let b:coc_suggest_disable = 1
 
 " ==Diagnostics Navigation==
+nnoremap <silent> <leader>d <Plug>(coc-diagnostic-info)
 nmap <silent>]g <Plug>(coc-diagnostic-prev)
 nmap <silent>[g <Plug>(coc-diagnostic-next)
 
