@@ -5,5 +5,21 @@
   "coc.preferences.extensionUpdateCheck": "daily",
   "stylelintplus.cssInJs": true,
   "diagnostic.checkCurrentLine": true,
-  "git.enableGutters": true
+  "git.enableGutters": true,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": ">",
+  "diagnostic.hintSign": "ℹ",
+  "diagnostic.enableMessage": "never",
+  "suggest.completionItemKindLabels": {
+    "function": "ƒ",
+    "operator": "Ψ",
+    "variable": "",
+    "method": "𐲘",
+    "snippet": "𐊸",
+    "class": "𐲖",
+    "keyword": "𐲫",
+    "module": "𐲬",
+    "struct": "𣎴",
+    "constant": "𐲏"
+  }
 }
