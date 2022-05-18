@@ -47,6 +47,7 @@ bindkey -s '^o' 'openfile^M' # Open file in vim through fzf
 bindkey -s '^g' 'fzm^M' # Go to bookmarked directory through fzf
 bindkey -s '^z' 'source ~/.zshrc^M' # Source .zshrc
 bindkey -s '^k' 'tfz^M' # Attach to tmux session through fzf
+bindkey -s '^f' 'ranger^M' # Open ranger
 
 # Theme
 # =========================================
