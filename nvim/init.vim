@@ -124,7 +124,6 @@ Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mod
 Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
 Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
 Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
-Plug 'psliwka/vim-smoothie' " https://github.com/psliwka/vim-smoothie
 
 call plug#end()
 
@@ -599,8 +598,8 @@ autocmd FileType markdown let b:coc_suggest_disable = 1
 
 " ==Diagnostics Navigation==
 nnoremap <silent> <leader>d <Plug>(coc-diagnostic-info)
-nmap <silent>]g <Plug>(coc-diagnostic-prev)
-nmap <silent>[g <Plug>(coc-diagnostic-next)
+nmap <silent>]e <Plug>(coc-diagnostic-prev)
+nmap <silent>[e <Plug>(coc-diagnostic-next)
 
 " ==GoTo code navigation==
 nmap <silent> gd <Plug>(coc-definition)
