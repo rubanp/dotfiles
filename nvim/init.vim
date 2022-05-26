@@ -175,12 +175,6 @@ nnoremap <leader>= gg=G
 nnoremap <tab> :tabprevious<cr>
 nnoremap <s-tab> :tabnext<cr>
 
-" Move between splits
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-nnoremap <c-h> <c-w>h
-
 " Move between buffers
 nnoremap <Right> :silent bn<cr> :redraw!<cr>
 nnoremap <Left> :silent bp<cr> :redraw!<cr>
