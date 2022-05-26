@@ -168,6 +168,9 @@ hi CocHintSign guibg=#282828 guifg=#458588
 " |shortcuts|
 " ===========
 
+" Align whole page
+nnoremap <leader>= gg=G
+
 " Move between tabs
 nnoremap <tab> :tabprevious<cr>
 nnoremap <s-tab> :tabnext<cr>
