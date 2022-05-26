@@ -37,3 +37,10 @@ alias tree="tree -aI '.git|.DS_Store|tags|node_modules'"
 alias tree2="tree -L 2 | bat"
 alias tree3="tree -L 3 | bat"
 alias tree4="tree -L 4 | bat"
+
+# Git
+alias glol="git log --oneline"
+alias gdh="git diff HEAD"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias gp="git add --patch"
