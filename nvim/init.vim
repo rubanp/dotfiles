@@ -124,6 +124,7 @@ Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mod
 Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
 Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
 Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
+Plug 'github/copilot.vim' " https://github.com/github/copilot.vim
 
 call plug#end()
 
@@ -272,6 +273,13 @@ nnoremap <Leader>u z<Enter>5k5j
 " =================
 " |plugin-settings|
 " =================
+
+" Copilot
+let g:copilot_enabled = 0
+nnoremap ,c :Copilot enable<cr>
+nnoremap ,C :Copilot disable<cr>
+nnoremap ,j <Plug>(copilot-next)
+nnoremap ,k <Plug>(copilot-prev)
 
 " Gutentags
 let g:gutentags_add_default_project_roots = 0
