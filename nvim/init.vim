@@ -144,6 +144,13 @@ augroup SyntaxSettings
   autocmd BufNewFile,BufRead *.js set syntax=typescript
 augroup END
 
+" Fold Method Settings
+augroup FoldSettings
+  autocmd!
+  autocmd BufNewFile,BufRead *.json set foldmethod=syntax
+augroup END
+
+
 " Specific Highlight Colours
 hi Folded guibg=#282828 guifg=#949494
 hi DiffAdd guifg=#282828 guibg=#98971a
