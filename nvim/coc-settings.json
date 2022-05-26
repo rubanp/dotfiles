@@ -7,8 +7,8 @@
   "diagnostic.checkCurrentLine": true,
   "git.enableGutters": true,
   "diagnostic.errorSign": "✘",
-  "diagnostic.infoSign": ">",
-  "diagnostic.hintSign": "ℹ",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "𐳓",
   "diagnostic.enableMessage": "never",
   "suggest.completionItemKindLabels": {
     "function": "ƒ",
