@@ -2,9 +2,9 @@
 # =======
 
 alias l="lsd -1 --group-dirs first"
-alias lh="lsd -1lh --group-dirs first"
+alias ll="lsd -1lh --group-dirs first"
 alias la="lsd -1A --group-dirs first"
-alias lah="lsd -1Alh --group-dirs first"
+alias lal="lsd -1Alh --group-dirs first"
 function cl () {
 	cd "$1" && l;
 }
@@ -39,8 +39,11 @@ alias tree3="tree -L 3 | bat"
 alias tree4="tree -L 4 | bat"
 
 # Git
-alias glol="git log --oneline"
+alias gs="git status -s"
+alias glo="git log --oneline"
 alias gdh="git diff HEAD"
 alias gd="git diff"
 alias gds="git diff --staged"
-alias gp="git add --patch"
+alias ga="git add"
+alias gap="git add --patch"
+alias gc="git commit"
