@@ -75,8 +75,6 @@ augroup END
 
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
 Plug 'tpope/vim-abolish' " https://github.com/tpope/vim-abolish
 Plug 'tpope/vim-speeddating' " https://github.com/tpope/vim-speeddating
 Plug 'tpope/vim-eunuch' " https://github.com/tpope/vim-eunuch
@@ -84,6 +82,7 @@ Plug 'tpope/vim-commentary' " https://github.com/tpope/vim-commentary
 Plug 'tpope/vim-fugitive' " https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-surround' " https://github.com/tpope/vim-surround
 Plug 'tpope/vim-repeat' " https://github.com/tpope/vim-repeat
+Plug 'tpope/vim-git' " https://github.com/tpope/vim-git
 Plug 'junegunn/vim-easy-align' " https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " https://github.com/junegunn/fzf
 Plug 'junegunn/fzf.vim' " https://github.com/junegunn/fzf.vim
@@ -92,6 +91,8 @@ Plug 'junegunn/limelight.vim' " https://github.com/junegunn/limelight.vim
 Plug 'svermeulen/vim-subversive' " https://github.com/svermeulen/vim-subversive
 Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
 Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
+Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
 Plug 'preservim/vim-markdown' " https://github.com/preservim/vim-markdown
 Plug 'preservim/tagbar' " https://github.com/preservim/tagbar
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
