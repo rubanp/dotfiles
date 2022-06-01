@@ -282,8 +282,8 @@ nnoremap <Leader>u z<Enter>5k5j
 let g:copilot_enabled = 0
 nnoremap ,c :Copilot enable<cr>
 nnoremap ,C :Copilot disable<cr>
-nnoremap ,j <Plug>(copilot-next)
-nnoremap ,k <Plug>(copilot-prev)
+inoremap <C-l> <Plug>(copilot-next)
+inoremap <C-h> <Plug>(copilot-prev)
 
 " Gutentags
 let g:gutentags_add_default_project_roots = 0
