@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+for error in "$@"
+do
+  perror $error | grep -o "\b$error:.*"
+done
+
