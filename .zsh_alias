@@ -37,6 +37,7 @@ alias tree="tree -aI '.git|.DS_Store|tags|node_modules'"
 alias tree2="tree -L 2 | bat"
 alias tree3="tree -L 3 | bat"
 alias tree4="tree -L 4 | bat"
+alias nr="npm run"
 
 # Git
 alias gs="git status -s"
