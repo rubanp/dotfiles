@@ -145,6 +145,13 @@ augroup SyntaxSettings
   autocmd BufNewFile,BufRead *.js set syntax=typescript
 augroup END
 
+" Git Commit Syntax Highlighting
+
+augroup GitCommitSyntax
+  autocmd!
+  autocmd BufNewFile,BufRead *.commit set filetype=gitcommit
+augroup END
+
 " Fold Method Settings
 augroup FoldSettings
   autocmd!
