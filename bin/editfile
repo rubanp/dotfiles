@@ -1,0 +1,3 @@
+#!/bin/zsh
+FILE=$(fzf)
+[[ ! -z "$FILE" ]] && nvim "$FILE" || exit 22
