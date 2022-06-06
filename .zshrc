@@ -7,8 +7,8 @@ export LANG=en_GB.UTF-8
 export VISUAL=nvim
 export EDITOR=nvim
 export PATH="$PATH:$HOME/.local/bin:$HOME/dotfiles/bin"
-export THEME='gruvbox'
-export BACKGROUND='#282828'
+export THEME='nord'
+export BACKGROUND='#2e333f'
 
 # Alias
 # =========================================
@@ -43,7 +43,8 @@ zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;
 
 # Keyboard Shortcuts
 # =========================================
-bindkey -s '^o' 'openfile^M' # Open file in vim through fzf
+bindkey -s '^e' 'editfile^M' # Open file in vim through fzf
+bindkey -s '^o' 'openfile^M' # Open file in default program through fzf
 bindkey -s '^g' 'fzm^M' # Go to bookmarked directory through fzf
 bindkey -s '^z' 'source ~/.zshrc^M' # Source .zshrc
 bindkey -s '^k' 'tfz^M' # Attach to tmux session through fzf

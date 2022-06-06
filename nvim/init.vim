@@ -133,8 +133,8 @@ call plug#end()
 " |theme|
 " =======
 
-colorscheme gruvbox
-let g:airline_theme='base16_gruvbox_dark_medium'
+colorscheme nord
+let g:airline_theme='base16_nord'
 set background=dark
 set termguicolors
 highlight clear SignColumn
@@ -160,17 +160,17 @@ augroup END
 
 
 " Specific Highlight Colours
-hi Folded guibg=#282828 guifg=#949494
-hi DiffAdd guifg=#282828 guibg=#98971a
-hi DiffDelete guifg=#282828 guibg=#cc241d
-hi DiffChange guifg=#282828 guibg=#458588
-hi FoldColumn guibg=#282828
+hi Folded guibg=#2e333f guifg=#949494
+hi DiffAdd guifg=#2e333f guibg=#98971a
+hi DiffDelete guifg=#2e333f guibg=#cc241d
+hi DiffChange guifg=#2e333f guibg=#458588
+hi FoldColumn guibg=#2e333f
 hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#949494
-hi SignColumn guibg=#282828
-hi CocErrorSign guibg=#282828 guifg=#cc241d
-hi CocWarningSign guibg=#282828 guifg=#fabd2f
-hi CocInfoSign guibg=#282828 guifg=#98971a
-hi CocHintSign guibg=#282828 guifg=#458588
+hi SignColumn guibg=#2e333f
+hi CocErrorSign guibg=#2e333f guifg=#cc241d
+hi CocWarningSign guibg=#2e333f guifg=#fabd2f
+hi CocInfoSign guibg=#2e333f guifg=#98971a
+hi CocHintSign guibg=#2e333f guifg=#458588
 
 " ===========
 " |shortcuts|
@@ -474,11 +474,11 @@ function! s:goyo_leave()
   set relativenumber
   set signcolumn=yes
   let b:signcolumn_on=1
-  hi Folded guibg=#282828 guifg=#949494
-  hi DiffAdd guifg=#282828 guibg=#98971a
-  hi DiffDelete guifg=#282828 guibg=#cc241d
-  hi DiffChange guifg=#282828 guibg=#458588
-  hi FoldColumn guibg=#282828
+  hi Folded guibg=#2e333f guifg=#949494
+  hi DiffAdd guifg=#2e333f guibg=#98971a
+  hi DiffDelete guifg=#2e333f guibg=#cc241d
+  hi DiffChange guifg=#2e333f guibg=#458588
+  hi FoldColumn guibg=#2e333f
   highlight clear SignColumn
 endfunction
 
@@ -494,11 +494,11 @@ function! s:goyo_enter()
   set nonumber
   set signcolumn=no
   let b:signcolumn_on=0
-  hi Folded guibg=#282828 guifg=#949494
-  hi DiffAdd guifg=#282828 guibg=#98971a
-  hi DiffDelete guifg=#282828 guibg=#cc241d
-  hi DiffChange guifg=#282828 guibg=#458588
-  hi FoldColumn guibg=#282828
+  hi Folded guibg=#2e333f guifg=#949494
+  hi DiffAdd guifg=#2e333f guibg=#98971a
+  hi DiffDelete guifg=#2e333f guibg=#cc241d
+  hi DiffChange guifg=#2e333f guibg=#458588
+  hi FoldColumn guibg=#2e333f
   highlight clear SignColumn
 endfunction
 
