@@ -7,8 +7,8 @@ export LANG=en_GB.UTF-8
 export VISUAL=nvim
 export EDITOR=nvim
 export PATH="$PATH:$HOME/.local/bin:$HOME/dotfiles/bin"
-export THEME='nord'
-export BACKGROUND='#2e333f'
+export THEME='gruvbox'
+export BACKGROUND='#282828'
 
 # Alias
 # =========================================
