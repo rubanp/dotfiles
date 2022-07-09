@@ -611,7 +611,7 @@ let g:user_emmet_leader_key=','
 
 " CoC
 " ====
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-eslint', 'coc-tsserver', 'coc-snippets', 'coc-prettier', 'coc-sql', 'coc-sh', 'coc-stylelintplus']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-eslint', 'coc-tsserver', 'coc-snippets', 'coc-prettier', 'coc-sql', 'coc-sh', 'coc-stylelintplus', 'coc-java']
 autocmd FileType css setl iskeyword+=-
 
 autocmd FileType markdown let b:coc_suggest_disable = 1
