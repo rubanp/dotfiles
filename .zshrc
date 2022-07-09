@@ -10,6 +10,10 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/dotfiles/bin"
 export THEME='gruvbox'
 export BACKGROUND='#282828'
 
+# Java
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
 # Alias
 # =========================================
 source ~/.zsh_alias
