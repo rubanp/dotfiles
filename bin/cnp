@@ -37,37 +37,11 @@ echo "Changing directory into ~/Code/$NAME..."
 tmux send-keys -t 'nvim' "cd ~/Code/$NAME" C-m
 sleep 0.5
 
-echo "Installing node modules..."
-tmux send-keys -t 'nvim' "npm i" C-m
-sleep 5
-echo "Still installing node modules..."
-sleep 5
-
 echo "Setting project name..."
 tmux send-keys -t 'nvim' "sed -i '' 's/project-name/$NAME/g' src/index.html" C-m
 sleep 0.25
 tmux send-keys -t 'nvim' "sed -i '' 's/project-name/$NAME/g' package.json" C-m
 sleep 0.25
-
-echo "Initialising git..."
-tmux send-keys -t 'nvim' 'git init' C-m
-sleep 1
-tmux send-keys -t 'nvim' 'git add .gitignore .eslintrc.json' C-m
-sleep 1
-tmux send-keys -t 'nvim' 'git add .stylelintrc.json .stylelintrc.css.json' C-m
-sleep 1
-tmux send-keys -t 'nvim' 'git add .npmrc' C-m
-sleep 1
-tmux send-keys -t 'nvim' 'git add .prettierignore .prettierrc.yaml' C-m
-sleep 1
-tmux send-keys -t 'nvim' 'git add .storybook .babelrc' C-m
-sleep 1
-tmux send-keys -t 'nvim' 'git add *' C-m
-sleep 1
-
-echo "Creating first git commit..."
-tmux send-keys -t 'nvim' "git commit -m 'first commit'" C-m
-sleep 2
 
 echo "Initialising vim..."
 tmux send-keys -t 'nvim' "vim"
@@ -94,87 +68,29 @@ sleep 1
 echo "Window 2 'ranger' created."
 sleep 0.25
 
-# Third Window - git
-# ==================
-
-echo "Building window 3 'git'..."
-tmux new-window -t $NAME:3 -n 'git'
-sleep 0.5
-
-echo "Changing directory into ~/Code/$NAME..."
-tmux send-keys -t 'git' "cd ~/Code/$NAME" C-m
-sleep 0.5
-
-echo "Creating github repository..."
-tmux send-keys -t 'git' "gh repo create" C-m
-sleep 0.5
-tmux send-keys -t 'git' 'push' C-m
-sleep 0.5
-tmux send-keys -t 'git' C-m
-sleep 0.5
-tmux send-keys -t 'git' C-m
-sleep 0.5
-tmux send-keys -t 'git' C-m
-sleep 0.5
-
-echo "Pushing to github repository..."
-tmux send-keys -t 'git' C-m
-sleep 1
-tmux send-keys -t 'git' C-m
-sleep 1
-tmux send-keys -t 'git' C-m
-sleep 1
-tmux send-keys -t 'git' C-m
-sleep 1
-
-echo "Initialising lazygit..."
-tmux send-keys -t 'git' "lazygit"
-sleep 0.5
-
-echo "Window 3 'git' created."
-sleep 0.25
-
-# # Fourth Window - zsh
+# Third Window - zsh
 # ===================
-echo "Building window 4 'zsh'..."
-tmux new-window -t $NAME:4 -n 'zsh'
+echo "Building window 3 'zsh'..."
+tmux new-window -t $NAME:3 -n 'zsh'
 sleep 0.5
 
 echo "Changing directory into ~/Code/$NAME..."
 tmux send-keys -t 'zsh' "cd ~/Code/$NAME" C-m
 sleep 0.5
-echo "Window 4 'zsh' created."
+echo "Window 3 'zsh' created."
 sleep 0.25
 
-# Fifth Window - tests
-echo "Building window 5 'tests'..."
-tmux new-window -t $NAME:5 -n 'tests'
-sleep 0.5
-
-echo "Changing directory into ~/Code/$NAME..."
-tmux send-keys -t 'tests' "cd ~/Code/$NAME" C-m
-sleep 0.5
-echo "Initialising test script..."
-tmux send-keys -t 'tests' "npm run test"
-sleep 1
-
-echo "Window 5 'tests' created."
-sleep 0.25
-
-# Sixth Window - server
+# Fourth Window - server
 # =====================
-echo "Building window 6 'server'..."
-tmux new-window -t $NAME:6 -n 'server'
+echo "Building window 4 'server'..."
+tmux new-window -t $NAME:4 -n 'server'
 sleep 0.5
 
 echo "Changing directory into ~/Code/$NAME..."
 tmux send-keys -t 'server' "cd ~/Code/$NAME" C-m
 sleep 0.5
-echo "Initialising server dev server..."
-tmux send-keys -t 'server' "npm run dev"
-sleep 1
 
-echo "Window 6 'server' created."
+echo "Window 4 'server' created."
 sleep 0.25
 
 # Attach to zsh window
