@@ -126,6 +126,7 @@ Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
 Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
 Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
 Plug 'github/copilot.vim' " https://github.com/github/copilot.vim
+Plug 'othree/html5.vim' " https://github.com/othree/html5.vim
 
 call plug#end()
 
@@ -611,7 +612,7 @@ let g:user_emmet_leader_key=','
 
 " CoC
 " ====
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-eslint', 'coc-tsserver', 'coc-snippets', 'coc-prettier', 'coc-sql', 'coc-sh', 'coc-stylelintplus', 'coc-java']
+let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-eslint', 'coc-tsserver', 'coc-snippets', 'coc-prettier', 'coc-sql', 'coc-sh', 'coc-stylelintplus']
 autocmd FileType css setl iskeyword+=-
 
 autocmd FileType markdown let b:coc_suggest_disable = 1
