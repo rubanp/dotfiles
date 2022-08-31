@@ -9,7 +9,6 @@
   "diagnostic.errorSign": "✘",
   "diagnostic.infoSign": "ℹ",
   "diagnostic.hintSign": "𐳓",
-  "diagnostic.enableMessage": "never",
   "suggest.completionItemKindLabels": {
     "function": "ƒ",
     "operator": "Ψ",

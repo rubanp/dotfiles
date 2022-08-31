@@ -35,7 +35,7 @@ set nolist
 set noshowmatch
 set splitbelow
 set splitright
-set conceallevel=2
+set conceallevel=0
 set concealcursor=inc
 set autochdir
 set tags=tags
@@ -82,7 +82,6 @@ Plug 'tpope/vim-commentary' " https://github.com/tpope/vim-commentary
 Plug 'tpope/vim-fugitive' " https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-surround' " https://github.com/tpope/vim-surround
 Plug 'tpope/vim-repeat' " https://github.com/tpope/vim-repeat
-Plug 'tpope/vim-git' " https://github.com/tpope/vim-git
 Plug 'junegunn/vim-easy-align' " https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " https://github.com/junegunn/fzf
 Plug 'junegunn/fzf.vim' " https://github.com/junegunn/fzf.vim
@@ -92,41 +91,32 @@ Plug 'svermeulen/vim-subversive' " https://github.com/svermeulen/vim-subversive
 Plug 'svermeulen/vim-yoink' " https://github.com/svermeulen/vim-yoink
 Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
 Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
 Plug 'preservim/vim-markdown' " https://github.com/preservim/vim-markdown
 Plug 'preservim/tagbar' " https://github.com/preservim/tagbar
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
 Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
-Plug 'jonsmithers/vim-html-template-literals' "https://github.com/jonsmithers/vim-html-template-literals
 Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
 Plug 'unblevable/quick-scope' " https://github.com/unblevable/quick-scope
-Plug 'brooth/far.vim' " https://github.com/brooth/far.vim
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " https://github.com/tiagofumo/vim-nerdtree-syntax-highlight
-Plug 'SirVer/ultisnips' " https://github.com/SirVer/ultisnips
-Plug 'vim-scripts/loremipsum' " https://github.com/vim-scripts/loremipsum
 Plug 'dhruvasagar/vim-open-url' " https://github.com/dhruvasagar/vim-open-url
-Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
 Plug 'alvan/vim-closetag' " https://github.com/alvan/vim-closetag
 Plug 'simeji/winresizer' " https://github.com/simeji/winresizer
 Plug 'easymotion/vim-easymotion' " https://github.com/easymotion/vim-easymotion
-Plug 'mattn/emmet-vim' " https://github.com/mattn/emmet-vim
 Plug 'edkolev/tmuxline.vim' " https://github.com/edkolev/tmuxline.vim
-Plug 'kyazdani42/nvim-web-devicons' " https://github.com/kyazdani42/nvim-web-devicons
-Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
 Plug 'honza/vim-snippets' " https://github.com/honza/vim-snippets
 Plug 'ap/vim-css-color' " https://github.com/ap/vim-css-color
 Plug 'hail2u/vim-css3-syntax' " https://github.com/hail2u/vim-css3-syntax
 Plug 'andymass/vim-matchup' " https://github.com/andymass/vim-matchup
 Plug 'lukas-reineke/indent-blankline.nvim' " https://github.com/lukas-reineke/indent-blankline.nvim
 Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
-Plug 'jbyuki/venn.nvim' " https://github.com/jbyuki/venn.nvim
 Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mode
 Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
 Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
 Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
-Plug 'github/copilot.vim' " https://github.com/github/copilot.vim
 Plug 'othree/html5.vim' " https://github.com/othree/html5.vim
+Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
+Plug 'tribela/vim-transparent' " https://github.com/tribela/vim-transparent
 
 call plug#end()
 
@@ -138,7 +128,6 @@ colorscheme gruvbox
 let g:airline_theme='base16_gruvbox_dark_medium'
 set background=dark
 set termguicolors
-highlight clear SignColumn
 
 " Make javascript files syntax highlight as typescript
 augroup SyntaxSettings
@@ -146,36 +135,52 @@ augroup SyntaxSettings
   autocmd BufNewFile,BufRead *.js set syntax=typescript
 augroup END
 
-" Git Commit Syntax Highlighting
+" Change formatting for markdown
+autocmd FileType markdown 
+      \ set formatoptions-=q |
+      \ set formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*\[-*+]\\s\\+
 
-augroup GitCommitSyntax
-  autocmd!
-  autocmd BufNewFile,BufRead *.commit set filetype=gitcommit
-augroup END
-
-" Fold Method Settings
-augroup FoldSettings
-  autocmd!
-  autocmd BufNewFile,BufRead *.json set foldmethod=syntax
-augroup END
-
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 
 " Specific Highlight Colours
+" Gruvbox guibg=#282828
 hi Folded guibg=#282828 guifg=#949494
 hi DiffAdd guifg=#282828 guibg=#98971a
 hi DiffDelete guifg=#282828 guibg=#cc241d
 hi DiffChange guifg=#282828 guibg=#458588
-hi FoldColumn guibg=#282828
 hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#949494
+hi Search guibg=#ffffff guifg=#949494
+hi FoldColumn guibg=#282828
 hi SignColumn guibg=#282828
 hi CocErrorSign guibg=#282828 guifg=#cc241d
 hi CocWarningSign guibg=#282828 guifg=#fabd2f
 hi CocInfoSign guibg=#282828 guifg=#98971a
 hi CocHintSign guibg=#282828 guifg=#458588
 
+" Toggle transparent background
+let t:is_transparent = 0
+function! Toggle_transparent()
+    if t:is_transparent == 0
+        hi Normal guibg=NONE ctermbg=NONE
+        hi SignColumn guibg=NONE
+        let t:is_transparent = 1
+    else
+        set background=dark
+        let t:is_transparent = 0
+    endif
+endfunction
+nnoremap <C-t> : call Toggle_transparent()<CR>
+
 " ===========
 " |shortcuts|
 " ===========
+
+" Bold text in markdown
+nnoremap ,b S*gvS*
+
+" Save page
+nnoremap <C-s> :w<cr>
+nnoremap <C-b> :q<cr>
 
 " Align whole page
 nnoremap <leader>= gg=G
@@ -201,6 +206,16 @@ vnoremap <silent> * :<C-U>
       \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
       \gVzv:call setreg('"', old_reg, old_regtype)<cr>
 vnoremap <silent> # :<C-U>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
+      \gvy?<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
+      \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
+      \gVzv:call setreg('"', old_reg, old_regtype)<cr>
+nnoremap <silent> ,* viW:<C-U>
+      \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
+      \gvy/<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
+      \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
+      \gVzv:call setreg('"', old_reg, old_regtype)<cr>
+nnoremap <silent> ,# viW:<C-U>
       \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<cr>
       \gvy?<C-R>=&ic?'\c':'\C'<cr><C-R><C-R>=substitute(
       \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<cr><cr>
@@ -287,88 +302,23 @@ nnoremap <Leader>u z<Enter>5k5j
 " |plugin-settings|
 " =================
 
-" Copilot
-let g:copilot_enabled = 0
-nnoremap ,c :Copilot enable<cr>
-nnoremap ,C :Copilot disable<cr>
-inoremap <C-l> <Plug>(copilot-next)
-inoremap <C-h> <Plug>(copilot-prev)
-
-" Gutentags
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['package.json', '.git']
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_empty_buffer = 0
-let g:gutentags_ctags_extra_args = [
-      \ '--tag-relative=yes',
-      \ '--fields=+ailmnS',
-      \ ]
-let g:gutentags_ctags_exclude = [
-      \ '*.git', '*.svg', '*.hg',
-      \ '*/tests/*',
-      \ 'build',
-      \ 'dist',
-      \ '*sites/*/files/*',
-      \ 'bin',
-      \ 'node_modules',
-      \ 'bower_components',
-      \ 'cache',
-      \ 'compiled',
-      \ 'docs',
-      \ 'example',
-      \ 'bundle',
-      \ 'vendor',
-      \ '*.md',
-      \ '*-lock.json',
-      \ '*.lock',
-      \ '*bundle*.js',
-      \ '*build*.js',
-      \ '.*rc*',
-      \ '*.json',
-      \ '*.min.*',
-      \ '*.map',
-      \ '*.bak',
-      \ '*.zip',
-      \ '*.pyc',
-      \ '*.class',
-      \ '*.sln',
-      \ '*.Master',
-      \ '*.csproj',
-      \ '*.tmp',
-      \ '*.csproj.user',
-      \ '*.cache',
-      \ '*.pdb',
-      \ 'tags*',
-      \ 'cscope.*',
-      \ '*.css',
-      \ '*.less',
-      \ '*.scss',
-      \ '*.exe', '*.dll',
-      \ '*.mp3', '*.ogg', '*.flac',
-      \ '*.swp', '*.swo',
-      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
-      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
-      \ ]
-
-" Tagbar
-nnoremap ,5 :TagbarToggle<cr>
-
 " Table Mode
+" ==========
 let g:table_mode_corner='|'
 
 " Venn
+" ====
 nnoremap <silent><leader>2 :set ve=all<cr>
 vnoremap <silent> <C-l> :VBox<cr>
 
 " Limelight
+" =========
 nnoremap <silent>,l :Limelight!!<cr>
 let g:limelight_conceal_ctermfg = 240
 let g:limelight_conceal_guifg = '#777777'
 
 " IndentLine
+" ==========
 function! ToggleIndents()
   if !exists("b:indents_on") || b:indents_on
     :IndentLinesDisable
@@ -479,7 +429,14 @@ function! s:goyo_leave()
   hi DiffAdd guifg=#282828 guibg=#98971a
   hi DiffDelete guifg=#282828 guibg=#cc241d
   hi DiffChange guifg=#282828 guibg=#458588
+  hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#949494
+  hi Search guibg=#ffffff guifg=#949494
   hi FoldColumn guibg=#282828
+  hi SignColumn guibg=#282828
+  hi CocErrorSign guibg=#282828 guifg=#cc241d
+  hi CocWarningSign guibg=#282828 guifg=#fabd2f
+  hi CocInfoSign guibg=#282828 guifg=#98971a
+  hi CocHintSign guibg=#282828 guifg=#458588
   highlight clear SignColumn
 endfunction
 
@@ -499,7 +456,14 @@ function! s:goyo_enter()
   hi DiffAdd guifg=#282828 guibg=#98971a
   hi DiffDelete guifg=#282828 guibg=#cc241d
   hi DiffChange guifg=#282828 guibg=#458588
+  hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#949494
+  hi Search guibg=#ffffff guifg=#949494
   hi FoldColumn guibg=#282828
+  hi SignColumn guibg=#282828
+  hi CocErrorSign guibg=#282828 guifg=#cc241d
+  hi CocWarningSign guibg=#282828 guifg=#fabd2f
+  hi CocInfoSign guibg=#282828 guifg=#98971a
+  hi CocHintSign guibg=#282828 guifg=#458588
   highlight clear SignColumn
 endfunction
 
@@ -509,13 +473,6 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 " ========================
 let g:htl_css_templates = 1
 let g:html_indent_style1 = "inc"
-let g:closetag_filetypes = 'html,xhtml,phtml,javascript,typescript'
-let g:closetag_regions = {
-      \ 'typescript.tsx': 'jsxRegion,tsxRegion,litHtmlRegion',
-      \ 'javascript.jsx': 'jsxRegion,litHtmlRegion',
-      \ 'javascript':     'litHtmlRegion',
-      \ 'typescript':     'litHtmlRegion',
-      \ }
 
 " Jsonc
 " =====
@@ -523,7 +480,7 @@ autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
 " EasyMotion
 " ==========
-map <Leader><Leader> <Plug>(easymotion-prefix)
+map ;k <Plug>(easymotion-prefix)
 
 " Rainbow Parentheses
 " ===================
@@ -534,19 +491,6 @@ let g:rainbow_active = 1
 " ==========
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-" Ultisnips
-" =========
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
-let g:UltiSnipsSnippetsDir="~/.config/nvim/snips"
-let g:UltiSnipsSnippetDirectories=['snips']
-
-" Far.vim
-" =======
-let g:far#auto_preview = 1
-let g:far#enable_undo = 1
 
 " Vim Cutlass
 " ===========
@@ -600,63 +544,26 @@ let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'x', 'y', 'erro
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_nr = 0
 
-" Dev Icons
-" =========
-if exists('g:loaded_webdevicons')
-  call webdevicons#refresh()
-endif
-
-" Emmet
-" =====
-let g:user_emmet_leader_key=','
-
-" CoC
+" Coc
 " ====
-let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-html', 'coc-css', 'coc-eslint', 'coc-tsserver', 'coc-snippets', 'coc-prettier', 'coc-sql', 'coc-sh', 'coc-stylelintplus']
-autocmd FileType css setl iskeyword+=-
+let g:coc_global_extensions = ['coc-marketplace', 'coc-json', 'coc-git', 'coc-tsserver', 'coc-emmet', 'coc-prettier', 'coc-pairs', '@yaegassy/coc-volar']
 
-autocmd FileType markdown let b:coc_suggest_disable = 1
-
-" ==Diagnostics Navigation==
-nnoremap <silent> <leader>d <Plug>(coc-diagnostic-info)
-nmap <silent>]e <Plug>(coc-diagnostic-prev)
-nmap <silent>[e <Plug>(coc-diagnostic-next)
-
-" ==GoTo code navigation==
+" Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" ==Show Documentation==
-nnoremap <silent> K :call <SID>show_documentation()<cr>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Use enter to trigger completion
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-" ==Symbol renaming==
-nmap ,rn <Plug>(coc-rename)
-
-" ==CocList Mappings==
-" option + d
-nnoremap <silent><nowait> ∂  :<C-u>CocList diagnostics<cr>
-" option + o
-nnoremap <silent><nowait> ø  :<C-u>CocList outline<cr>
-
-" ==Coc Git==
-" navigate chunks of current buffer
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-" navigate conflicts of current buffer
-nmap [c <Plug>(coc-git-prevconflict)
-nmap ]c <Plug>(coc-git-nextconflict)
-
-" ==Coc Airline Settings==
-let airline#extensions#coc#error_symbol = 'Error: '
-let airline#extensions#coc#warning_symbol = 'Warning: '
