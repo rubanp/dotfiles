@@ -40,7 +40,7 @@ set concealcursor=inc
 set autochdir
 set tags=tags
 set number
-set relativenumber
+set norelativenumber
 set linebreak
 set fo=tcrwa
 set shada=!,'100,<50,s10,h
@@ -97,26 +97,26 @@ Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
 Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
 Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
-Plug 'unblevable/quick-scope' " https://github.com/unblevable/quick-scope
 Plug 'dhruvasagar/vim-open-url' " https://github.com/dhruvasagar/vim-open-url
 Plug 'alvan/vim-closetag' " https://github.com/alvan/vim-closetag
 Plug 'simeji/winresizer' " https://github.com/simeji/winresizer
-Plug 'easymotion/vim-easymotion' " https://github.com/easymotion/vim-easymotion
 Plug 'edkolev/tmuxline.vim' " https://github.com/edkolev/tmuxline.vim
-Plug 'honza/vim-snippets' " https://github.com/honza/vim-snippets
+" Plug 'honza/vim-snippets' " https://github.com/honza/vim-snippets
 Plug 'ap/vim-css-color' " https://github.com/ap/vim-css-color
-Plug 'hail2u/vim-css3-syntax' " https://github.com/hail2u/vim-css3-syntax
-Plug 'andymass/vim-matchup' " https://github.com/andymass/vim-matchup
-Plug 'lukas-reineke/indent-blankline.nvim' " https://github.com/lukas-reineke/indent-blankline.nvim
-Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
-Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mode
+" Plug 'hail2u/vim-css3-syntax' " https://github.com/hail2u/vim-css3-syntax
+" Plug 'andymass/vim-matchup' " https://github.com/andymass/vim-matchup
+" Plug 'lukas-reineke/indent-blankline.nvim' " https://github.com/lukas-reineke/indent-blankline.nvim
+" Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
+" Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mode
 Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
 Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
-Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
-Plug 'othree/html5.vim' " https://github.com/othree/html5.vim
+" Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
+" Plug 'othree/html5.vim' " https://github.com/othree/html5.vim
 Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
-Plug 'tribela/vim-transparent' " https://github.com/tribela/vim-transparent
+" Plug 'tribela/vim-transparent' " https://github.com/tribela/vim-transparent
+Plug 'leafOfTree/vim-vue-plugin' " https://github.com/leafOfTree/vim-vue-plugin'
+Plug 'mattn/emmet-vim' " https://github.com/mattn/emmet-vim
 
 call plug#end()
 
@@ -176,7 +176,7 @@ nnoremap <C-t> : call Toggle_transparent()<CR>
 " ===========
 
 " Bold text in markdown
-nnoremap ,b S*gvS*
+nnoremap ,b gvS*
 
 " Save page
 nnoremap <C-s> :w<cr>
@@ -543,6 +543,10 @@ let g:airline_section_c = "%{expand('%:p:h:t')}"
 let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'x', 'y', 'error', 'warning' ] ]
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_nr = 0
+
+" Emmet
+" =====
+let g:user_emmet_leader_key=','
 
 " Coc
 " ====
