@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+URL=$1
+NAME=$2
+
+# Check if URL is from main / master or another branch
+
+svn export https://github.com/USER/REPO-NAME.git/trunk/FOLDER/FILE NEW-NAME
+
+svn export https://github.com/USER/REPO-NAME.git/branches/BRANCH-NAME/FOLDER/FILE NEW-NAME
