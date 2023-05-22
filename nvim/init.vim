@@ -40,7 +40,7 @@ set concealcursor=inc
 set autochdir
 set tags=tags
 set number
-set norelativenumber
+set relativenumber
 set linebreak
 set fo=tcrwa
 set shada=!,'100,<50,s10,h
@@ -149,26 +149,31 @@ hi DiffDelete guifg=#282828 guibg=#cc241d
 hi DiffChange guifg=#282828 guibg=#458588
 hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#949494
 hi Search guibg=#ffffff guifg=#949494
-hi FoldColumn guibg=#282828
-hi SignColumn guibg=#282828
 hi CocErrorSign guibg=#282828 guifg=#cc241d
 hi CocWarningSign guibg=#282828 guifg=#fabd2f
 hi CocInfoSign guibg=#282828 guifg=#98971a
 hi CocHintSign guibg=#282828 guifg=#458588
+" hi FoldColumn guibg=#282828
+" hi SignColumn guibg=#282828
 
-" Toggle transparent background
-let t:is_transparent = 0
-function! Toggle_transparent()
-    if t:is_transparent == 0
-        hi Normal guibg=NONE ctermbg=NONE
-        hi SignColumn guibg=NONE
-        let t:is_transparent = 1
-    else
-        set background=dark
-        let t:is_transparent = 0
-    endif
-endfunction
-nnoremap <C-t> : call Toggle_transparent()<CR>
+" Transparent Background
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE
+hi! SignColumn guibg=NONE
+hi FoldColumn guibg=NONE
+
+" hi Folded guibg=NONE guifg=#949494
+" hi DiffAdd guifg=NONE guibg=#98971a
+" hi DiffDelete guifg=NONE guibg=#cc241d
+" hi DiffChange guifg=NONE guibg=#458588
+" hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#949494
+" hi Search guibg=#ffffff guifg=#949494
+" hi CocErrorSign guibg=NONE guifg=#cc241d
+" hi CocWarningSign guibg=NONE guifg=#fabd2f
+" hi CocInfoSign guibg=NONE guifg=#98971a
+" hi CocHintSign guibg=NONE guifg=#458588
+
+highlight clear SignColumn
 
 " ===========
 " |shortcuts|
@@ -241,8 +246,23 @@ function! ToggleSignColumn()
     set signcolumn=no
     let b:signcolumn_on=0
   else
-    set signcolumn=number
+    set signcolumn=auto
     let b:signcolumn_on=1
+  endif
+endfunction
+
+" Toggle number column
+nnoremap <silent>,n :call ToggleNumberColumn()<cr>
+
+function! ToggleNumberColumn()
+  if !exists("b:numbercolumn_on") || b:numbercolumn_on
+    set nonumber
+    set norelativenumber
+    let b:numbercolumn_on=0
+  else
+    set number
+    set relativenumber
+    let b:numbercolumn_on=1
   endif
 endfunction
 
@@ -412,7 +432,7 @@ nnoremap <Leader>w :WinResizerStartResize<cr>
 nnoremap <silent> ,g :silent! Goyo<cr>
 
 let g:goyo_height= '70%'
-let g:goyo_width= '50%'
+let g:goyo_width= '70%'
 
 function! s:goyo_leave()
   if executable('tmux') && strlen($TMUX)
