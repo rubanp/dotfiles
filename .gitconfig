@@ -13,4 +13,5 @@
 	ui = auto
 [alias]
 	unstage = restore --staged
-    logone = log --oneline
+  logone = log --oneline
+  fixup = !sh -c 'REV=$(git rev-parse $1) && git commit --fixup $@ && git rebase -i --autostash --autosquash $REV^' -
