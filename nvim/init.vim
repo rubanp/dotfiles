@@ -101,20 +101,11 @@ Plug 'dhruvasagar/vim-open-url' " https://github.com/dhruvasagar/vim-open-url
 Plug 'alvan/vim-closetag' " https://github.com/alvan/vim-closetag
 Plug 'simeji/winresizer' " https://github.com/simeji/winresizer
 Plug 'edkolev/tmuxline.vim' " https://github.com/edkolev/tmuxline.vim
-" Plug 'honza/vim-snippets' " https://github.com/honza/vim-snippets
 Plug 'ap/vim-css-color' " https://github.com/ap/vim-css-color
-" Plug 'hail2u/vim-css3-syntax' " https://github.com/hail2u/vim-css3-syntax
-" Plug 'andymass/vim-matchup' " https://github.com/andymass/vim-matchup
-" Plug 'lukas-reineke/indent-blankline.nvim' " https://github.com/lukas-reineke/indent-blankline.nvim
-" Plug 'Yggdroot/indentLine' " https://github.com/Yggdroot/indentLine
-" Plug 'dhruvasagar/vim-table-mode' " https://github.com/dhruvasagar/vim-table-mode
 Plug 'zackhsi/fzf-tags' " https://github.com/zackhsi/fzf-tags
 Plug 'ludovicchabant/vim-gutentags' " https://github.com/ludovicchabant/vim-gutentags
-" Plug 'mhinz/vim-grepper' " https://github.com/mhinz/vim-grepper
-" Plug 'othree/html5.vim' " https://github.com/othree/html5.vim
 Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
-" Plug 'tribela/vim-transparent' " https://github.com/tribela/vim-transparent
 Plug 'leafOfTree/vim-vue-plugin' " https://github.com/leafOfTree/vim-vue-plugin'
 Plug 'mattn/emmet-vim' " https://github.com/mattn/emmet-vim
 
@@ -153,25 +144,12 @@ hi CocErrorSign guibg=#282828 guifg=#cc241d
 hi CocWarningSign guibg=#282828 guifg=#fabd2f
 hi CocInfoSign guibg=#282828 guifg=#98971a
 hi CocHintSign guibg=#282828 guifg=#458588
-" hi FoldColumn guibg=#282828
-" hi SignColumn guibg=#282828
 
 " Transparent Background
 hi! Normal ctermbg=NONE guibg=NONE
 hi! NonText ctermbg=NONE guibg=NONE
 hi! SignColumn guibg=NONE
 hi FoldColumn guibg=NONE
-
-" hi Folded guibg=NONE guifg=#949494
-" hi DiffAdd guifg=NONE guibg=#98971a
-" hi DiffDelete guifg=NONE guibg=#cc241d
-" hi DiffChange guifg=NONE guibg=#458588
-" hi CocUnusedHighlight ctermbg=NONE guibg=NONE guifg=#949494
-" hi Search guibg=#ffffff guifg=#949494
-" hi CocErrorSign guibg=NONE guifg=#cc241d
-" hi CocWarningSign guibg=NONE guifg=#fabd2f
-" hi CocInfoSign guibg=NONE guifg=#98971a
-" hi CocHintSign guibg=NONE guifg=#458588
 
 highlight clear SignColumn
 
@@ -272,6 +250,8 @@ nnoremap <Leader>k :e!<cr>
 " Better Movement
 nnoremap j gj
 nnoremap k gk
+nnoremap gk :<C-u>call rpcrequest(g:vscode_channel, 'vscode-command', 'cursorMove', { 'to': 'up', 'by': 'wrappedLine', 'value': v:count ? v:count : 1 })<CR>
+nnoremap gj :<C-u>call rpcrequest(g:vscode_channel, 'vscode-command', 'cursorMove', { 'to': 'down', 'by': 'wrappedLine', 'value': v:count ? v:count : 1 })<CR>
 nnoremap 0 g0
 nnoremap _ g_
 nnoremap $ g$
