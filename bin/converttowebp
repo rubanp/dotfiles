@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+for file in $(find . -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \)); do
+  echo "Converting $file"
+  cwebp "$file" -o "${file%.*}.webp"
+done

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Check if argument was provided
+if [ -z "$1" ]
+then
+    echo "No argument supplied. Please provide a file to convert."
+    exit 1
+fi
+
+# Get file path and extension
+filepath=$1
+extension="${filepath##*.}"
+filename="${filepath%.*}"
+
+# Convert file to webp format using cwebp
+cwebp -q 80 "$filepath" -o "${filename}.webp"
+
+# If the conversion was successful, remove the original file
+if [ $? -eq 0 ]
+then
+    rm "$filepath"
+else
+    echo "The conversion to webp failed."
+    exit 1
+fi
+
