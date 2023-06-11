@@ -250,6 +250,8 @@ nnoremap <Leader>k :e!<cr>
 " Better Movement
 nnoremap j gj
 nnoremap k gk
+nnoremap k :<C-u>call rpcrequest(g:vscode_channel, 'vscode-command', 'cursorMove', { 'to': 'up', 'by': 'wrappedLine', 'value': v:count ? v:count : 1 })<CR>
+nnoremap j :<C-u>call rpcrequest(g:vscode_channel, 'vscode-command', 'cursorMove', { 'to': 'down', 'by': 'wrappedLine', 'value': v:count ? v:count : 1 })<CR>
 nnoremap 0 g0
 nnoremap _ g_
 nnoremap $ g$
