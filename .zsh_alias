@@ -38,7 +38,7 @@ alias tree2="tree -L 2 | bat"
 alias tree3="tree -L 3 | bat"
 alias tree4="tree -L 4 | bat"
 alias nr="npm run"
-function d() { yt-dlp "$1" --format mp4 }
+alias d="yt-dlp --format mp4"
 
 # Git
 alias gs="git status -s"
