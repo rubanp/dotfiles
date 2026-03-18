@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+  echo "Usage: DownloadMP4 <YouTube URL> <Output Name>"
+  exit 1
+fi
+
+yt-dlp -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4" -o "$2.%(ext)s" "$1"

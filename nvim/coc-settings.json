@@ -20,5 +20,8 @@
     "module": "𐲬",
     "struct": "𣎴",
     "constant": "𐲏"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
   }
 }
