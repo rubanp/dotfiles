@@ -93,8 +93,8 @@ Plug 'svermeulen/vim-cutlass' " https://github.com/svermeulen/vim-cutlass
 Plug 'neoclide/jsonc.vim' " https://github.com/neoclide/jsonc.vim
 Plug 'preservim/vim-markdown' " https://github.com/preservim/vim-markdown
 Plug 'preservim/tagbar' " https://github.com/preservim/tagbar
-Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
-Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
+" Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
+" Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
 Plug 'airblade/vim-rooter' " https://github.com/airblade/vim-rooter
 Plug 'pangloss/vim-javascript' " https://github.com/pangloss/vim-javascript
 Plug 'dhruvasagar/vim-open-url' " https://github.com/dhruvasagar/vim-open-url
@@ -108,6 +108,7 @@ Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " https://github.com/neoclide/coc.nvim
 Plug 'leafOfTree/vim-vue-plugin' " https://github.com/leafOfTree/vim-vue-plugin'
 Plug 'mattn/emmet-vim' " https://github.com/mattn/emmet-vim
+" Plug '2KAbhishek/markit.nvim' " https://github.com/2KAbhishek/markit.nvim
 
 call plug#end()
 
@@ -525,21 +526,21 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 
 " Airline
 " =======
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_powerline_fonts = 1
-let g:Powerline_symbols = 'fancy'
-let g:airline_left_sep = "\uE0B0"
-let g:airline_right_sep = "\uE0B2"
-let g:airline#extensions#tabline#alt_sep = 1
-let g:airline_stl_path_style = 'short'
-let g:airline_section_c_only_filename = 1
-let g:airline_section_c = "%{expand('%:p:h:t')}"
-let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'x', 'y', 'error', 'warning' ] ]
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tab_nr = 0
+" let g:airline#extensions#tabline#show_close_button = 0
+" let g:airline#extensions#tabline#fnamemod = ':t'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline_powerline_fonts = 1
+" let g:Powerline_symbols = 'fancy'
+" let g:airline_left_sep = "\uE0B0"
+" let g:airline_right_sep = "\uE0B2"
+" let g:airline#extensions#tabline#alt_sep = 1
+" let g:airline_stl_path_style = 'short'
+" let g:airline_section_c_only_filename = 1
+" let g:airline_section_c = "%{expand('%:p:h:t')}"
+" let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'x', 'y', 'error', 'warning' ] ]
+" let g:airline#extensions#tabline#show_buffers = 0
+" let g:airline#extensions#tabline#show_tab_nr = 0
 
 " Emmet
 " =====
